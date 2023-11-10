@@ -1,9 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Car extends Model { }
+class Note extends Model { }
 
-Car.init(
+
+Note.init(
     {
         id: {
             type: DataTypes.UUID,
@@ -11,22 +12,14 @@ Car.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        make: {
-            type: DataTypes.STRING,
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false,
         },
-        model: {
-            type: DataTypes.STRING,
-        },
-        mileage: {
-            type: DataTypes.DECIMAL,
-            validate: {
-                isDecimal: true
-            }
-        },
-        user_id: {
+        task_id: {
             type: DataTypes.UUID,
             references: {
-                model: 'user',
+                model: 'task',
                 key: 'id',
             }
         }
@@ -36,8 +29,8 @@ Car.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'car',
+        modelName: 'note',
     }
 );
 
-module.exports = Car;
+module.exports = Note;

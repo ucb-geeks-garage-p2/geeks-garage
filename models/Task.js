@@ -7,10 +7,10 @@ class Task extends Model { }
 Task.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4
         },
         make: {
             type: DataTypes.STRING,
@@ -32,10 +32,10 @@ Task.init(
         dueBy: {
             type: DataTypes.DATE(3),
           },
-        user_id: {
-            type: DataTypes.INTEGER,
+        car_id: {
+            type: DataTypes.UUID,
             references: {
-                model: 'user',
+                model: 'car',
                 key: 'id',
             }
         }
@@ -45,8 +45,8 @@ Task.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'car',
+        modelName: 'task',
     }
 );
 
-module.exports = Car;
+module.exports = Task;

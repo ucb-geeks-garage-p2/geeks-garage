@@ -1,22 +1,38 @@
-const seedUsers = require('./user-seeds');
-const seedCars = require('./car-seeds');
-const seedTasks = require('./task-seeds');
+const User = require('./User');
+const Task = require('./Task');
+const Car = require('./Car');
+const Note = require('./Note');
 
-const sequelize = require('../config/connection');
+User.hasMany(Car, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
 
-const seedAll = async () => {
-  await sequelize.sync({ force: true });
-  console.log('\n----- DATABASE SYNCED -----\n');
-  await seedCategories();
-  console.log('\n----- USERS SEEDED -----\n');
+Car.belongsTo(User, {
+  foreignKey: 'user_id',
+});
 
-  await seedProducts();
-  console.log('\n----- CARS SEEDED -----\n');
+Car.hasMany(Task, {
+  foreignKey: 'car_id',
+  onDelete: 'CASCADE',
+});
 
-  await seedTags();
-  console.log('\n----- TASKS SEEDED -----\n');
+Task.belongsTo(Car, {
+  foreignKey: 'car_id'
+});
 
-  process.exit(0);
+Task.hasMany(Note, {
+  foreignKey: 'task_id',
+  onDelete: 'CASCADE',
+});
+
+NotebelongsTo(Task, {
+  foreignKey: 'task_id'
+});
+
+module.exports = {
+  User,
+  Task,
+  Car,
+  Note
 };
-
-seedAll();
