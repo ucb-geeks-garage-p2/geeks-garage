@@ -1,1 +1,5 @@
--- database 
+-- DROP DATABASE
+DROP DATABASE IF EXISTS cartracker_db;
+
+-- CREATE DATABASE
+CREATE DATABASE cartracker_db;
