@@ -1,9 +1,33 @@
-const { Task } = require('../models');
-
-const taskData = [
-  
-];
-
-const seedTasks = () => Task.bulkCreate(taskData);
-
-module.exports = seedTasks;
+[
+    {
+        "task_name": "honda_accord_task_1",
+        "due_by": "1700764200000",
+        "car_id": ""
+    },
+    {
+        "task_name": "honda_accord_task_2",
+        "car_id": ""
+    },
+    {
+        "task_name": "jeep_grand_task_1",
+        "due_by": "1700764200000",
+        "car_id": ""
+    },
+    {
+        "task_name": "bmw_428i_task_1",
+        "car_id": ""
+    },
+    {
+        "task_name": "nissan_versa_task_1",
+        "car_id": ""
+    },
+    {
+        "task_name": "nissan_altima_task_1",
+        "car_id": ""
+    },
+    {
+        "task_name": "honda_rebel_task_1",
+        "due_by": "1700764200000",
+        "car_id": ""
+    }
+]

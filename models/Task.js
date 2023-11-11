@@ -12,24 +12,15 @@ Task.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        make: {
+        task_name: {
             type: DataTypes.STRING,
         },
-        model: {
-            type: DataTypes.STRING,
-        },
-        mileage: {
-            type: DataTypes.DECIMAL,
-            validate: {
-                isDecimal: true
-            }
-        },
-        createdOn: {
+        created_on: {
             type: DataTypes.DATE(3),
             allowNull: false,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           },
-        dueBy: {
+        due_by: {
             type: DataTypes.DATE(3),
           },
         car_id: {
