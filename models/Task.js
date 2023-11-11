@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Task extends Model { }
@@ -18,7 +18,7 @@ Task.init(
         created_on: {
             type: DataTypes.DATE(3),
             allowNull: false,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
           },
         due_by: {
             type: DataTypes.DATE(3),

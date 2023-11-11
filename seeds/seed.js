@@ -1,3 +1,10 @@
+const {
+  User,
+  Task,
+  Car,
+  Note
+} = require('../models');
+
 const userData = require('./user-seeds.json');
 const carData = require('./car-seeds.json');
 const taskData = require('./task-seeds.json');
@@ -6,12 +13,20 @@ const noteData = require('./note-seeds.json');
 const sequelize = require('../config/connection');
 
 async function seedUsers() {
-  const users = await User.bulkCreate(userData, {
+  let users = await User.bulkCreate(userData, {
     individualHooks: true,
-    returning: [
-      id,
-      username
-    ],
+    returning: true,
+  });
+
+  users = users.map( user => {
+    const {
+      dataValues: {
+        id,
+        username
+      }
+    } = user;
+
+    return { id, username };
   });
 
   return users;
@@ -62,27 +77,15 @@ const seedAll = async () => {
   const users = await seedUsers();
   console.log('\n----- USERS SEEDED -----\n');
   console.log(users);
-  const cars = await seedCars(users);
-  console.log('\n----- CARS SEEDED -----\n');
-  console.log(cars);
-  const tasks = await seedTasks();
-  console.log('\n----- TASKS SEEDED -----\n');
-  console.log(tasks);
-  const notes = await seedNotes();
-  console.log('\n----- NOTES SEEDED -----\n');
-  console.log(notes);
-  process.exit(0);
-};
-
-
-const seedDatabase = async () => {
-  await sequelize.sync({ force: true });
-
-  await User.bulkCreate(userData, {
-    individualHooks: true,
-    returning: true,
-  });
-
+  // const cars = await seedCars(users);
+  // console.log('\n----- CARS SEEDED -----\n');
+  // console.log(cars);
+  // const tasks = await seedTasks();
+  // console.log('\n----- TASKS SEEDED -----\n');
+  // console.log(tasks);
+  // const notes = await seedNotes();
+  // console.log('\n----- NOTES SEEDED -----\n');
+  // console.log(notes);
   process.exit(0);
 };
 
