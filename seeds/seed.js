@@ -1,7 +1,7 @@
-const seedUsers = require('./user-seeds');
-const seedCars = require('./car-seeds');
-const seedTasks = require('./task-seeds');
-const seedNotes = require('./note-seeds');
+const seedUsers = require('./user-seeds.json');
+const seedCars = require('./car-seeds.json');
+const seedTasks = require('./task-seeds.json');
+const seedNotes = require('./note-seeds.json');
 
 const sequelize = require('../config/connection');
 
@@ -19,6 +19,18 @@ const seedAll = async () => {
 
   await seedNotes();
   console.log('\n----- NOTES SEEDED -----\n');
+
+  process.exit(0);
+};
+
+
+const seedDatabase = async () => {
+  await sequelize.sync({ force: true });
+
+  await User.bulkCreate(userData, {
+    individualHooks: true,
+    returning: true,
+  });
 
   process.exit(0);
 };
