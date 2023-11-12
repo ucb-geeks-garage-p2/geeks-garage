@@ -7,3 +7,12 @@
     width: 100%;
     height: auto;
   }
+
+  .cardinfo {
+    padding-top: 2rem;
+    text-align: center;
+    font-family: /*What font is wanted?*/ sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color30); /*What color is wanted? We can use something outside of our color scheme
+     if it is unable to be seen*/
+  }
