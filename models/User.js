@@ -15,7 +15,7 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [1, 18]
+                len: [8, 18]
             }
         },
         email: {
@@ -36,7 +36,7 @@ User.init(
     },
     {
         sequelize,
-        timestamps: true,
+        timestamps: false,
         freezeTableName: true,
         underscored: true,
         modelName: 'user',

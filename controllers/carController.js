@@ -1,4 +1,4 @@
-const { User, Car, Task } = require('../models');
+const { User, Car, Task, Note } = require('../models');
 
 async function checkCar(id) {
     try {
