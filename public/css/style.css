@@ -32,6 +32,16 @@ body {
     padding-right: 1rem;
   }
 
+  .login-nav-Btn {
+    margin-right: 0.5rem;
+    width: 6rem;
+    border-width: 1.3px;
+    background: var(--secondary-color30);
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
   .container {
     margin-left: auto;
   }
