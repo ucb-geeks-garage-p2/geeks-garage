@@ -14,5 +14,35 @@ body {
 }
 
 .navbar {
-    background-color: var(--primary-color30);
+    background-color: var(--secondary-color30);
 }
+
+.navbar-brand {
+    color: var(--tertiary-color10);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    margin-right: 0px;
+    text-align: left;
+}
+
+.navbar-nav {
+    margin-left: auto;
+    padding-right: 1rem;
+  }
+
+  .container {
+    margin-left: auto;
+  }
+
+  footer {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 791px) {
+    .navbar-brand {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
