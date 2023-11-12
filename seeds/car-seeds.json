@@ -1,9 +1,51 @@
-const { Car } = require('../models');
-
-const carData = [
-  
-];
-
-const seedCars = () => Car.bulkCreate(carData);
-
-module.exports = seedCars;
+[
+    {
+        "make": "honda",
+        "model": "accord",
+        "year": "2017",
+        "mileage": "120445",
+        "user_id": ""
+    },
+    {
+        "make": "jeep",
+        "model": "grand cherokee",
+        "year": "2012",
+        "mileage": "120445",
+        "user_id": ""
+    },
+    {
+        "make": "bmw",
+        "model": "428i",
+        "year": "2014",
+        "mileage": "117700",
+        "user_id": ""
+    },
+    {
+        "make": "volkswagen",
+        "model": "id.4",
+        "year": "2023",
+        "mileage": "34",
+        "user_id": ""
+    },
+    {
+        "make": "nissan",
+        "model": "versa",
+        "year": "2018",
+        "mileage": "65786",
+        "user_id": ""
+    },
+    {
+        "make": "nissan",
+        "model": "altima",
+        "year": "2011",
+        "mileage": "120445",
+        "user_id": ""
+    },
+    {
+        "make": "honda",
+        "model": "rebel 500",
+        "year": "2022",
+        "mileage": "10335",
+        "user_id": ""
+    }
+]

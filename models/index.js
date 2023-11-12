@@ -26,7 +26,7 @@ Task.hasMany(Note, {
   onDelete: 'CASCADE',
 });
 
-NotebelongsTo(Task, {
+Note.belongsTo(Task, {
   foreignKey: 'task_id'
 });
 

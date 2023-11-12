@@ -1,9 +1,30 @@
-const { Note } = require('../models');
-
-const noteData = [
-  
-];
-
-const seedNotes = () => Note.bulkCreate(noteData);
-
-module.exports = seedNotes;
+[
+    {
+        "message": "honda_accord1_note_1",
+        "task_id": ""
+    },
+    {
+        "message": "honda_accord1_note_2",
+        "task_id": ""
+    },
+    {
+        "message": "jeep_grand_note_1",
+        "task_id": ""
+    },
+    {
+        "message": "bmw_428i_note_1",
+        "task_id": ""
+    },
+    {
+        "message": "nissan_versa_note_1",
+        "task_id": ""
+    },
+    {
+        "message": "nissan_altima_note_1",
+        "task_id": ""
+    },
+    {
+        "message": "honda_rebel_note_1",
+        "task_id": ""
+    }
+]

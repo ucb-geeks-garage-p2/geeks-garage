@@ -17,6 +17,9 @@ Car.init(
         model: {
             type: DataTypes.STRING,
         },
+        year: {
+            type: DataTypes.INTEGER,
+        },
         mileage: {
             type: DataTypes.DECIMAL,
             validate: {

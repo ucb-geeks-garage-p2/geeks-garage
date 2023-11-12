@@ -12,7 +12,7 @@ Note.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        description: {
+        message: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
