@@ -152,7 +152,11 @@ async function deleteBulkCar(ids) {
 module.exports = {
     checkCar,
     getCars,
+    getCarsTasks,
+    getCarsAll,
     getCarByID,
+    getCarTasksByID,
+    getCarAllByID,
     createCar,
     updateCar,
     deleteCar,

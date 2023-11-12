@@ -119,7 +119,9 @@ async function deleteBulkTask(ids) {
 module.exports = {
     checkTask,
     getTasks,
+    getTasksNotes,
     getTaskByID,
+    getTaskNotesByID,
     createTask,
     updateTask,
     deleteTask,
