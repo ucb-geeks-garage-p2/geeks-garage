@@ -16,12 +16,12 @@ Task.init(
             type: DataTypes.STRING,
         },
         created_on: {
-            type: DataTypes.DATE(3),
+            type: DataTypes.BIGINT,
             allowNull: false,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
           },
         due_by: {
-            type: DataTypes.DATE(3),
+            type: DataTypes.BIGINT,
+            allowNull: true
           },
         car_id: {
             type: DataTypes.UUID,

@@ -35,80 +35,85 @@ async function seedUsers() {
 async function seedCars(users) {
 
   let cars = carData.map(car => {
-    let carName = `${car.make} ${car.model}`;
+    const carName = `${car.make} ${car.model}`;
     switch (carName) {
       case 'honda accord':
         for (const user of users) {
           if (user.username === 'jshienbaum') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       case 'jeep grand cherokee':
         for (const user of users) {
           if (user.username === 'cdouglas') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       case 'bmw 428i':
         for (const user of users) {
           if (user.username === 'kbarrett') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       case 'volkswagen id.4':
         for (const user of users) {
           if (user.username === 'carla') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       case 'nissan versa':
         for (const user of users) {
           if (user.username === 'steve') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       case 'nissan altima':
         for (const user of users) {
           if (user.username === 'kbarrett') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       case 'honda rebel 500':
         for (const user of users) {
           if (user.username === 'steve') {
             car.user_id = user.id;
+            return car;
           }
         }
-        return car;
+        break;
       default:
 
     }
 
   })
-  
+
   cars = await Car.bulkCreate(cars, {
     individualHooks: true,
     returning: true,
   });
 
-  cars = cars.map(user => {
+  cars = cars.map(car => {
     const {
       dataValues: {
         id,
         make,
         model
       }
-    } = user;
+    } = car;
 
-    const carName = `${make} ${model}`;
-
-    return { id, carName };
+    return { id, make, model };
   });
 
 
@@ -117,13 +122,92 @@ async function seedCars(users) {
 
 async function seedTasks(cars) {
 
-  const tasks = '';
+  let tasks = taskData.map(task => {
+    switch (task.task_name) {
+      case 'honda_accord_task_1':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'honda accord') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      case 'honda_accord_task_2':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'honda accord') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      case 'jeep_grand_task_1':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'jeep grand cherokee') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      case 'bmw_428i_task_1':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'bmw 428i') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      case 'nissan_versa_task_1':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'nissan versa') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      case 'nissan_altima_task_1':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'nissan altima') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      case 'honda_rebel_task_1':
+        for (const car of cars) {
+          const carName = `${car.make} ${car.model}`;
+          if (carName === 'honda rebel 500') {
+            task.car_id = car.id;
+            return task;
+          }
+        }
+        break;
+      default:
 
-  switch ('') {
-    case '':
+    }
 
-      break;
-  }
+  })
+
+  tasks = await Task.bulkCreate(tasks, {
+    individualHooks: true,
+    returning: true,
+  });
+
+  tasks = tasks.map(task => {
+    const {
+      dataValues: {
+        id,
+        task_name
+      }
+    } = task;
+
+    return { id, task_name };
+  });
 
   return tasks;
 }
@@ -150,9 +234,9 @@ const seedAll = async () => {
   const cars = await seedCars(users);
   console.log('\n----- CARS SEEDED -----\n');
   console.log(cars);
-  // const tasks = await seedTasks();
-  // console.log('\n----- TASKS SEEDED -----\n');
-  // console.log(tasks);
+  const tasks = await seedTasks(cars);
+  console.log('\n----- TASKS SEEDED -----\n');
+  console.log(tasks);
   // const notes = await seedNotes();
   // console.log('\n----- NOTES SEEDED -----\n');
   // console.log(notes);
