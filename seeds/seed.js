@@ -214,13 +214,85 @@ async function seedTasks(cars) {
 
 async function seedNotes(tasks) {
 
-  const notes = '';
+  let notes = noteData.map(note => {
+    switch (note.message) {
+      case 'honda_accord1_note_1':
+        for (const task of tasks) {
+          if (task.task_name === "honda_accord_task_1") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      case 'honda_accord1_note_2':
+        for (const task of tasks) {
+          if (task.task_name === "honda_accord_task_2") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      case 'jeep_grand_note_1':
+        for (const task of tasks) {
+          if (task.task_name === "jeep_grand_task_1") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      case 'bmw_428i_note_1':
+        for (const task of tasks) {
+          if (task.task_name === "bmw_428i_task_1") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      case 'nissan_versa_note_1':
+        for (const task of tasks) {
+          if (task.task_name === "nissan_versa_task_1") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      case 'nissan_altima_note_1':
+        for (const task of tasks) {
+          if (task.task_name === "nissan_altima_task_1") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      case 'honda_rebel_note_1':
+        for (const task of tasks) {
+          if (task.task_name === "honda_rebel_task_1") {
+            note.task_id = task.id;
+            return note;
+          }
+        }
+        break;
+      default:
 
-  switch ('') {
-    case '':
+    }
 
-      break;
-  }
+  })
+
+  notes = await Note.bulkCreate(notes, {
+    individualHooks: true,
+    returning: true,
+  });
+
+  notes = notes.map(note => {
+    const {
+      dataValues: {
+        id,
+        message
+      }
+    } = note;
+
+    return { id, message };
+  });
 
   return notes;
 }
@@ -237,9 +309,9 @@ const seedAll = async () => {
   const tasks = await seedTasks(cars);
   console.log('\n----- TASKS SEEDED -----\n');
   console.log(tasks);
-  // const notes = await seedNotes();
-  // console.log('\n----- NOTES SEEDED -----\n');
-  // console.log(notes);
+  const notes = await seedNotes(tasks);
+  console.log('\n----- NOTES SEEDED -----\n');
+  console.log(notes);
   process.exit(0);
 };
 
