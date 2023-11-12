@@ -14,7 +14,7 @@ Car.belongsTo(User, {
 
 Car.hasMany(Task, {
   foreignKey: 'car_id',
-  // onDelete: 'CASCADE',
+  onDelete: 'CASCADE',
 });
 
 Task.belongsTo(Car, {
