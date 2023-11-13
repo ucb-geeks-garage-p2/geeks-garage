@@ -1,4 +1,6 @@
-const { Model, DataTypes , Sequelize} = require('sequelize');
+
+const { Model, Sequelize, DataTypes } = require('sequelize');
+ main
 const sequelize = require('../config/connection');
 
 class Task extends Model { }
@@ -12,25 +14,16 @@ Task.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        make: {
+        task_name: {
             type: DataTypes.STRING,
         },
-        model: {
-            type: DataTypes.STRING,
-        },
-        mileage: {
-            type: DataTypes.DECIMAL,
-            validate: {
-                isDecimal: true
-            }
-        },
-        createdOn: {
-            type: DataTypes.DATE(3),
+        created_on: {
+            type: DataTypes.BIGINT,
             allowNull: false,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           },
-        dueBy: {
-            type: DataTypes.DATE(3),
+        due_by: {
+            type: DataTypes.BIGINT,
+            allowNull: true
           },
         car_id: {
             type: DataTypes.UUID,

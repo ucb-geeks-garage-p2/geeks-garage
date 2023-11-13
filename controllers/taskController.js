@@ -1,80 +1,132 @@
-const express = require('express');
-const router = express.Router();
-const { Task } = require('../models');
 
-// Get all tasks
-router.get('/', async (req, res) => {
-    try {
-        const tasks = await Task.findAll();
-        res.json(tasks);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+const { User, Car, Task, Note } = require('../models');
 
-// Get a single task by ID
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+async function checkTask(id) {
     try {
         const task = await Task.findByPk(id);
         if (!task) {
-            res.status(404).json({ error: 'Task not found' });
-        } else {
-            res.json(task);
+            throw new Error("task does not exist");
         }
+        return task;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw Error(error);
     }
-});
+}
 
-// Create a new task
-router.post('/', async (req, res) => {
-    const { make, model, mileage, createdOn, dueBy, car_id } = req.body;
+async function getTasks() {
     try {
-        const newTask = await Task.create({ make, model, mileage, createdOn, dueBy, car_id });
-        res.status(201).json(newTask);
+        const tasks = await Task.findAll();
+        return tasks;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error('there was an error getting tasks');
     }
-});
+}
 
-// Update a task by ID
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { make, model, mileage, createdOn, dueBy, car_id } = req.body;
+async function getTasksNotes() {
     try {
-        const updatedTask = await Task.update(
-            { make, model, mileage, createdOn, dueBy, car_id },
-            { where: { id }, returning: true }
-        );
-        if (updatedTask[0] === 0) {
-            res.status(404).json({ error: 'Task not found' });
-        } else {
-            res.json(updatedTask[1][0]);
-        }
+        const tasks = await Task.findAll({
+            include: [
+                Note,
+            ]
+        });
+        return tasks;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error('there was an error getting tasks');
     }
-});
+}
 
-// Delete a task by ID
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+async function getTaskByID(id) {
     try {
-        const deletedTask = await Task.destroy({ where: { id } });
-        if (deletedTask === 0) {
-            res.status(404).json({ error: 'Task not found' });
-        } else {
-            res.json({ message: 'Task deleted successfully' });
-        }
+        await checkTask(id);
+        const task = await Task.findByPk(id);
+        return task;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error("task had an error being found");
     }
-});
+}
 
-module.exports = router;
+async function getTaskNotesByID(id) {
+    try {
+        await checkTask(id);
+        const task = await Task.findByPk(id, {
+            include: [
+                Note,
+            ]
+        });
+        return task;
+    } catch (error) {
+        console.log(error);
+        throw new Error('there was an error getting task');
+    }
+}
+
+async function createTask(body) {
+    try {
+        const task = await Task.create({
+            task_name: body.task_name,
+            created_on: body.created_on,
+            due_by: body.due_by,
+            car_id: body.car_id,
+        })
+        return task;
+    } catch (error) {
+        console.log(error);
+        throw new Error("task had an error being created");
+    }
+}
+
+async function updateTask(id, body) {
+    try {
+        let task = await checkTask(id);
+        await task.update({
+            task_name: body.task_name,
+            created_on: body.created_on,
+            due_by: body.due_by,
+            car_id: body.car_id,
+        });
+        task = await checkTask(id);
+        return task;
+    } catch (error) {
+        console.log(error);
+        throw new Error("task had an error updating");
+    }
+}
+
+async function deleteTask(id) {
+    try {
+        const task = await checkTask(id)
+        await task.destroy();
+        console.log("deleted task");
+    } catch (error) {
+        console.log(error);
+        throw new Error("task had an error being deleted");
+    }
+}
+
+async function deleteBulkTask(ids) {
+    try {
+        const tasks = await Task.destroy({ where: { id: ids } });
+        return tasks;
+    } catch (error) {
+        console.log(error);
+        throw new Error("tasks had an error being deleted");
+    }
+}
+
+module.exports = {
+    checkTask,
+    getTasks,
+    getTasksNotes,
+    getTaskByID,
+    getTaskNotesByID,
+    createTask,
+    updateTask,
+    deleteTask,
+    deleteBulkTask
+
+}
+ main

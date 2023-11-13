@@ -1,80 +1,96 @@
-const express = require('express');
-const router = express.Router();
-const { Note } = require('../models');
 
-// Get all notes
-router.get('/', async (req, res) => {
-    try {
-        const notes = await Note.findAll();
-        res.json(notes);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+const { User, Car, Task, Note } = require('../models');
 
-// Get a single note by ID
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+async function checkNote(id) {
     try {
         const note = await Note.findByPk(id);
         if (!note) {
-            res.status(404).json({ error: 'Note not found' });
-        } else {
-            res.json(note);
+            throw new Error("note does not exist");
         }
+        return note;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw Error(error);
     }
-});
+}
 
-// Create a new note
-router.post('/', async (req, res) => {
-    const { description, task_id } = req.body;
+async function getNotes() {
     try {
-        const newNote = await Note.create({ description, task_id });
-        res.status(201).json(newNote);
+        const tasks = await Task.findAll();
+        return tasks;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error('there was an error getting tasks');
     }
-});
+}
 
-// Update a note by ID
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { description, task_id } = req.body;
+async function getNoteByID(id) {
     try {
-        const updatedNote = await Note.update(
-            { description, task_id },
-            { where: { id }, returning: true }
-        );
-        if (updatedNote[0] === 0) {
-            res.status(404).json({ error: 'Note not found' });
-        } else {
-            res.json(updatedNote[1][0]);
-        }
+        await checkNote(id);
+        const note = await Note.findByPk(id);
+        return note;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error("note had an error being found");
     }
-});
+}
 
-// Delete a note by ID
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+async function createNote(body) {
     try {
-        const deletedNote = await Note.destroy({ where: { id } });
-        if (deletedNote === 0) {
-            res.status(404).json({ error: 'Note not found' });
-        } else {
-            res.json({ message: 'Note deleted successfully' });
-        }
+        const note = await Note.create({
+            message: body.message,
+            task_id: body.task_id,
+        })
+        return note;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error("note had an error being created");
     }
-});
+}
 
-module.exports = router;
+async function updateNote(id, body) {
+    try {
+        let note = await checkNote(id);
+        await task.update({
+            message: body.message,
+            task_id: body.task_id,
+        })
+        return note;
+    } catch (error) {
+        console.log(error);
+        throw new Error("note had an error being created");
+    }
+}
+
+async function deleteNote(id) {
+    try {
+        const note = await checkNote(id)
+        await note.destroy();
+        console.log("deleted note");
+    } catch (error) {
+        console.log(error);
+        throw new Error("note had an error being deleted");
+    }
+}
+
+async function deleteBulkNote(ids) {
+    try {
+        const notes = await Note.destroy({ where: { id: ids } });
+        return note;
+    } catch (error) {
+        console.log(error);
+        throw new Error("note had an error being deleted");
+    }
+}
+
+module.exports = {
+    checkNote,
+    getNotes,
+    getNoteByID,
+    createNote,
+    updateNote,
+    deleteNote,
+    deleteBulkNote
+
+}
+ main

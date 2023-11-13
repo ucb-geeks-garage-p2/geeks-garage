@@ -1,80 +1,211 @@
-const express = require('express');
-const router = express.Router();
-const { User } = require('../models');
 
-// Get all users
-router.get('/', async (req, res) => {
-    try {
-        const users = await User.findAll();
-        res.json(users);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
+const { User, Car, Task, Note } = require('../models');
 
-// Get a single user by ID
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+async function checkUser(id) {
     try {
         const user = await User.findByPk(id);
         if (!user) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.json(user);
+            throw new Error("user does not exist");
         }
+        return user;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw Error(error);
     }
-});
+}
 
-// Create a new user
-router.post('/', async (req, res) => {
-    const { username, email, password } = req.body;
+async function getUsers() { // admin privileges
     try {
-        const newUser = await User.create({ username, email, password });
-        res.status(201).json(newUser);
+        const users = await User.findAll();
+        return users;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error('there was an error getting users');
     }
-});
+}
 
-// Update a user by ID
-router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { username, email, password } = req.body;
+async function getUsersCars() {
     try {
-        const updatedUser = await User.update(
-            { username, email, password },
-            { where: { id }, returning: true }
-        );
-        if (updatedUser[0] === 0) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.json(updatedUser[1][0]);
-        }
+        const users = await User.findAll({
+            include: [
+                Car,
+            ]
+        });
+        return users;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error('there was an error getting users and cars');
     }
-});
+}
 
-// Delete a user by ID
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+async function getUsersTasks() {
     try {
-        const deletedUser = await User.destroy({ where: { id } });
-        if (deletedUser === 0) {
-            res.status(404).json({ error: 'User not found' });
-        } else {
-            res.json({ message: 'User deleted successfully' });
-        }
+        const users = await User.findAll({
+            include: [
+                Car,
+                Task,
+            ]
+        });
+        return users;
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error);
+        throw new Error('there was an error getting users, cars, and tasks');
     }
-});
+}
 
-module.exports = router;
+async function getUsersAll() {
+    try {
+        const users = await User.findAll({
+            include: [
+                Car,
+                Task,
+                Note,
+            ]
+        });
+        return users;
+    } catch (error) {
+        console.log(error);
+        throw new Error('there was an error getting users, cars, tasks, and notes');
+    }
+}
+
+async function getUserByID(id) {
+    try {
+        await checkUser(id);
+        const user = await User.findByPk(id);
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user had an error being found");
+    }
+}
+
+
+async function getUserCarsByID(id) {
+    try {
+        await checkUser(id);
+        const user = await User.findByPk(id, {
+            include: [
+                Car,
+            ]
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user with cars had an error being found");
+    }
+}
+
+async function getUserTasksByID(id) {
+    try {
+        await checkUser(id);
+        const user = await User.findByPk(id, {
+            include: [
+                Car,
+                Task,
+            ]
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user with cars and tasks had an error being found");
+    }
+}
+
+async function getUserAllByID(id) {
+    try {
+        await checkUser(id);
+        const user = await User.findByPk(id, {
+            include: [
+                Car,
+                Task,
+                Note,
+            ]
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user with cars, tasks, and notes had an error being found");
+    }
+}
+
+async function createUser(body) {
+    try {
+        const user = await User.create({
+            username: body.username,
+            email: body.email,
+            password: body.password,
+        });
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user had an error being created");
+    }
+}
+
+async function updateUser(id, body) {
+    try {
+        let user = await checkUser(id);
+        await user.update({
+            username: body.username,
+            email: body.price,
+        });
+        user = await checkUser(id);
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user had an error updating");
+    }
+}
+
+async function updateUserPassword(id, body) {
+    try {
+        let user = await checkUser(id);
+        await user.update({
+            password: body.password
+        });
+        user = await checkUser(id);
+        return user;
+    } catch (error) {
+        console.log(error);
+        throw new Error("user had an error updating password");
+    }
+}
+
+async function deleteUser(id) {
+    try {
+        const user = await checkUser(id);
+        await user.destroy();
+        console.log("deleted user");
+    } catch (error) {
+        console.log(error);
+        throw new Error("user had an error being deleted");
+    }
+}
+
+// async function deleteBulkUser(id) {
+//     try {
+
+//     } catch (error) {
+
+//     }
+// }
+
+module.exports = {
+    checkUser,
+    getUsers,
+    getUsersCars,
+    getUsersTasks,
+    getUsersAll,
+    getUserByID,
+    getUserCarsByID,
+    getUserTasksByID,
+    getUserAllByID,
+    createUser,
+    updateUser,
+    updateUserPassword,
+    deleteUser,
+    // deleteBulkUser 
+
+}
+main
