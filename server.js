@@ -5,8 +5,12 @@ const exphbs = require("express-handlebars");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const routes = require("./routes");
+
 const helpers = require('./utils/helpers');
+ main
 const sequelize = require("./config/connection");
+
+const helpers = require('./utils/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,7 +25,7 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-    db: sequelize,
+    db: sequelize
   }),
 };
 

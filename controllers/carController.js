@@ -1,3 +1,4 @@
+
 const { User, Car, Task, Note } = require('../models');
 
 async function checkCar(id) {
@@ -163,3 +164,4 @@ module.exports = {
     deleteBulkCar
 
 }
+ main
