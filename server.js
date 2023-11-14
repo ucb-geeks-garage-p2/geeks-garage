@@ -6,7 +6,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const routes = require("./routes");
 
-const helpers = require("./utils/helpers");
+// const helpers = require("./utils/helpers");
 
 const sequelize = require("./config/connection");
 
