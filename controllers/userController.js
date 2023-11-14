@@ -17,7 +17,7 @@ async function getUsers() {
   // admin privileges
   try {
     const users = await User.findAll();
-    return users;
+    return users.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting users");
@@ -29,7 +29,7 @@ async function getUsersCars() {
     const users = await User.findAll({
       include: [Car],
     });
-    return users;
+    return users.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting users and cars");
@@ -41,7 +41,7 @@ async function getUsersTasks() {
     const users = await User.findAll({
       include: [Car, Task],
     });
-    return users;
+    return users.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting users, cars, and tasks");
@@ -53,7 +53,7 @@ async function getUsersAll() {
     const users = await User.findAll({
       include: [Car, Task, Note],
     });
-    return users;
+    return users.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting users, cars, tasks, and notes");
@@ -64,7 +64,7 @@ async function getUserByID(id) {
   try {
     await checkUser(id);
     const user = await User.findByPk(id);
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user had an error being found");
@@ -77,7 +77,7 @@ async function getUserCarsByID(id) {
     const user = await User.findByPk(id, {
       include: [Car],
     });
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user with cars had an error being found");
@@ -90,7 +90,7 @@ async function getUserTasksByID(id) {
     const user = await User.findByPk(id, {
       include: [Car, Task],
     });
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user with cars and tasks had an error being found");
@@ -103,7 +103,7 @@ async function getUserAllByID(id) {
     const user = await User.findByPk(id, {
       include: [Car, Task, Note],
     });
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error(
@@ -119,7 +119,7 @@ async function createUser(body) {
       email: body.email,
       password: body.password,
     });
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user had an error being created");
@@ -134,7 +134,7 @@ async function updateUser(id, body) {
       email: body.price,
     });
     user = await checkUser(id);
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user had an error updating");
@@ -148,7 +148,7 @@ async function updateUserPassword(id, body) {
       password: body.password,
     });
     user = await checkUser(id);
-    return user;
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user had an error updating password");
@@ -160,6 +160,7 @@ async function deleteUser(id) {
     const user = await checkUser(id);
     await user.destroy();
     console.log("deleted user");
+    return user.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("user had an error being deleted");

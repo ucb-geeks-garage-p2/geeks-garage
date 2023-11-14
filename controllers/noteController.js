@@ -15,11 +15,11 @@ async function checkNote(id) {
 
 async function getNotes() {
   try {
-    const tasks = await Task.findAll();
-    return tasks;
+    const notes = await Note.findAll();
+    return notes.get({ plain: true });
   } catch (error) {
     console.log(error);
-    throw new Error("there was an error getting tasks");
+    throw new Error("there was an error getting notes");
   }
 }
 
@@ -27,7 +27,7 @@ async function getNoteByID(id) {
   try {
     await checkNote(id);
     const note = await Note.findByPk(id);
-    return note;
+    return note.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("note had an error being found");
@@ -40,7 +40,7 @@ async function createNote(body) {
       message: body.message,
       task_id: body.task_id,
     });
-    return note;
+    return note.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("note had an error being created");
@@ -54,7 +54,7 @@ async function updateNote(id, body) {
       message: body.message,
       task_id: body.task_id,
     });
-    return note;
+    return note.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("note had an error being created");
@@ -66,6 +66,7 @@ async function deleteNote(id) {
     const note = await checkNote(id);
     await note.destroy();
     console.log("deleted note");
+    return note.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("note had an error being deleted");
@@ -75,7 +76,7 @@ async function deleteNote(id) {
 async function deleteBulkNote(ids) {
   try {
     const notes = await Note.destroy({ where: { id: ids } });
-    return note;
+    return notes.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("note had an error being deleted");
