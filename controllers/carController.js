@@ -87,9 +87,9 @@ async function getCarAllByID(id) {
 async function createCar(body) {
   try {
     const car = await Car.create({
-      make: body.username,
-      model: body.email,
-      year: body.password,
+      make: body.make,
+      model: body.model,
+      year: body.year,
       mileage: body.mileage,
       user_id: body.user_id,
     });
@@ -104,9 +104,9 @@ async function updateCar(id, body) {
   try {
     let car = await checkCar(id);
     await car.update({
-      make: body.username,
-      model: body.email,
-      year: body.password,
+      make: body.make,
+      model: body.model,
+      year: body.year,
       mileage: body.mileage,
       user_id: body.user_id,
     });
