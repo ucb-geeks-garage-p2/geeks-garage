@@ -18,46 +18,6 @@
   {{/each}}
 </head>
 
-<body>
-  <header>
-    {{!-- https://getbootstrap.com/docs/5.3/components/navbar/ --}}
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark" />
-    {{!-- can chage the below to "container" if spacing is off --}}
-    <div class="container-fluid" />
-    <a class="navbar-brand font-test text-center" href="/">Geeks Garage</a>
-    </div>
-    {{!-- This is for navbar repsonsiveness when on different sized screens --}}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ml-auto">
-        {{#unless user.isLoggedIn}}
-        <a class="js-signin-modal-trigger btn btn-light login-nav-Btn" href="#0" data-signin="login">Log in</a>
-        <a class="js-signin-modal-trigger btn btn-light login-nav-Btn" href="#0" data-signin="signup">Sign up</a>
-        {{/unless}}
-        {{#if user.isLoggedIn}}
-        <div id="nav-user-dropdown" class="dropdown d-flex">
-          <img src="" class="nav-item nav-link active dropdown-toggle user-avatar" href="#" role="button"
-            id="user-profile-pic" data-bs-toggle="dropdown" data-toggle="tooltip" title="Profile" aria-expanded="false"
-            width="50px" />
-          <a class="nav-item nav-link active dropdown-toggle" href="#" role="button" id="user-username"
-            data-bs-toggle="dropdown" aria-expanded="false"></a>
-          <ul class="dropdown-menu" aria-labelledby="user-username">
-            {{!-- Settings option below if wanted after MVP --}}
-            {{!-- <li><a class="dropdown-item" href="/editprofile">Settings</a></li> --}}
-            <li><a class="dropdown-item" id="logout-btn" href="/logout">Logout</a></li>
-          </ul>
-        </div>
-        {{/if}}
-      </div>
-    </div>
-    </nav>
-  </header>
-
-</body>
-
 <main>
   {{{body}}}
 </main>
