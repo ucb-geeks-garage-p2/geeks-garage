@@ -1,11 +1,12 @@
 const router = require('express').Router();
-const {
+// const {
     
-} = require('../../../controllers/noteController');
+// } = require('../../../controllers/noteController');
 
+const noteController = require('../../../controllers/noteController');
 
 router.route('/')
-    .get()
+    .get(noteController.getNotes)
     .post()
 
 router.route('/:id')

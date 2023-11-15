@@ -1,11 +1,9 @@
 const router = require('express').Router();
-const {
-    
-} = require('../../../controllers/carController');
+const carController = require('../../../controllers/carController');
 
 
 router.route('/')
-    .get()
+    .get(carController.getCars)
     .post()
 
 router.route('/:id')
