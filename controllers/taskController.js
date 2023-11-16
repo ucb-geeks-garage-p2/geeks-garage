@@ -12,11 +12,11 @@ async function checkTask(id) {
     throw Error(error);
   }
 }
-
+//
 async function getTasks() {
   try {
     const tasks = await Task.findAll();
-    return tasks;
+    return tasks.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting tasks");
@@ -28,7 +28,7 @@ async function getTasksNotes() {
     const tasks = await Task.findAll({
       include: [Note],
     });
-    return tasks;
+    return tasks.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting tasks");
@@ -39,7 +39,7 @@ async function getTaskByID(id) {
   try {
     await checkTask(id);
     const task = await Task.findByPk(id);
-    return task;
+    return task.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("task had an error being found");
@@ -52,7 +52,7 @@ async function getTaskNotesByID(id) {
     const task = await Task.findByPk(id, {
       include: [Note],
     });
-    return task;
+    return task.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("there was an error getting task");
@@ -67,7 +67,7 @@ async function createTask(body) {
       due_by: body.due_by,
       car_id: body.car_id,
     });
-    return task;
+    return task.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("task had an error being created");
@@ -84,7 +84,7 @@ async function updateTask(id, body) {
       car_id: body.car_id,
     });
     task = await checkTask(id);
-    return task;
+    return task.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("task had an error updating");
@@ -96,6 +96,7 @@ async function deleteTask(id) {
     const task = await checkTask(id);
     await task.destroy();
     console.log("deleted task");
+    return task.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("task had an error being deleted");
@@ -105,7 +106,7 @@ async function deleteTask(id) {
 async function deleteBulkTask(ids) {
   try {
     const tasks = await Task.destroy({ where: { id: ids } });
-    return tasks;
+    return tasks.get({ plain: true });
   } catch (error) {
     console.log(error);
     throw new Error("tasks had an error being deleted");
