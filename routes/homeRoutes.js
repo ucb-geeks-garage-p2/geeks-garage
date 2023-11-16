@@ -3,7 +3,7 @@ const { User } = require('../models');
 const withAuth = require('../utils/auth');
 
 //withAuth,
-router.get('/',  async (req, res) => {
+router.get('/home',  async (req, res) => {
   try {
     const userData = await User.findAll({
       attributes: { exclude: ['password'] },
@@ -13,7 +13,8 @@ router.get('/',  async (req, res) => {
 
     const users = userData.map((project) => project.get({ plain: true }));
 
-    res.render('landingpage', {
+    res.render('main', { 
+      layout: 'index',
       users,
       logged_in: req.session.logged_in,
     });
