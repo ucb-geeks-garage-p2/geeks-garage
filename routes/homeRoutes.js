@@ -4,7 +4,7 @@ const { userController } = require('../controllers');
 router.get('/', (req, res) => {
   if (req.session.loggedIn) {
 
-    const usersWithTasks = userController.getUserTasksByID(req.session.userID);
+    // const usersWithTasks = userController.getUserTasksByID(req.session.userID);
 
     res.render('userpage', {  });
   }
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     failedSignUp: req.session.failedSignUp
   }
 
-  res.render('welcome', loginObj);
+  res.render('login-test', loginObj);
 });
 
 router.post('/login', async (req, res) => {
@@ -64,10 +64,10 @@ router.post('/logout', async (req, res) => {
   if (req.session.loggedIn) {
       req.session.destroy(() => {
           // console.log("---user logged out---");
-          res.render('welcome');
+          res.render('login-test');
       });
   } else {
-    res.render('welcome');
+    res.render('login-test');
   }
 })
 
