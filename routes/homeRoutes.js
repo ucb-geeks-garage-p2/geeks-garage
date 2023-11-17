@@ -13,8 +13,7 @@ router.get('/home',  async (req, res) => {
 
     const users = userData.map((project) => project.get({ plain: true }));
 
-    res.render('main', { 
-      layout: 'index',
+    res.render('index', { 
       users,
       logged_in: req.session.logged_in,
     });
