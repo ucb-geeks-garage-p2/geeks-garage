@@ -61,7 +61,7 @@ async function testFunction() {
 
 
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, async () => {
     console.log(`Server started at http://localhost:${PORT}`)
     await testFunction();}
