@@ -3,13 +3,21 @@ const carController = require('../../../controllers/carController');
 
 
 router.route('/')
-    .get(carController.getCars)
-    .post()
+    // .get()
+    .post(async (req, res) => {
+        
+    })
 
 router.route('/:id')
-    .get()
-    .put()
-    .delete();
+    .get(async (req, res) => {
+
+    })
+    .put(async (req, res) => {
+        
+    })
+    .delete(async (req, res) => {
+        
+    });
 
 
 module.exports = router;

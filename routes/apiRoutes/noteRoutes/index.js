@@ -3,16 +3,16 @@ const router = require('express').Router();
     
 // } = require('../../../controllers/noteController');
 
-const noteController = require('../../../controllers/noteController');
+// const noteController = require('../../../controllers/noteController');
 
-router.route('/')
-    .get(noteController.getNotes)
-    .post()
+// router.route('/')
+//     // .get(noteController.getNotes)
+//     .post()
 
-router.route('/:id')
-    .get()
-    .put()
-    .delete();
+// router.route('/:id')
+//     .get()
+//     .put()
+//     .delete();
 
 
 module.exports = router;
