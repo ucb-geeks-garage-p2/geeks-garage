@@ -12,7 +12,7 @@ async function checkTask(id) {
     throw Error(error);
   }
 }
-
+//
 async function getTasks() {
   try {
     const tasks = await Task.findAll();

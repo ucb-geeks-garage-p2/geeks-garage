@@ -131,7 +131,7 @@ async function updateUser(id, body) {
     let user = await checkUser(id);
     await user.update({
       username: body.username,
-      email: body.price,
+      email: body.email,
     });
     user = await checkUser(id);
     return user.get({ plain: true });

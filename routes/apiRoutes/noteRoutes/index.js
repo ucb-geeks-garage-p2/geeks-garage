@@ -1,17 +1,18 @@
 const router = require('express').Router();
-const {
+// const {
     
-} = require('../../../controllers/noteController');
+// } = require('../../../controllers/noteController');
 
+// const noteController = require('../../../controllers/noteController');
 
-router.route('/')
-    .get()
-    .post()
+// router.route('/')
+//     // .get(noteController.getNotes)
+//     .post()
 
-router.route('/:id')
-    .get()
-    .put()
-    .delete();
+// router.route('/:id')
+//     .get()
+//     .put()
+//     .delete();
 
 
 module.exports = router;
