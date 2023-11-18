@@ -13,7 +13,7 @@ router.route('/')
 
             req.session.save(() => {
                 req.session.loggedIn = true;
-                req.session.userId = user.id;
+                req.session.userID = user.id;
                 console.log(
                     'File: user-routes.js ~ req.session.save ~ req.session.cookie',
                     req.session.cookie

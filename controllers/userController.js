@@ -84,18 +84,18 @@ async function getUserCarsByID(id) {
   }
 }
 
-async function getUserTasksByID(id) {
-  try {
-    await checkUser(id);
-    const user = await User.findByPk(id, {
-      include: [Car, Task],
-    });
-    return user.get({ plain: true });
-  } catch (error) {
-    console.log(error);
-    throw new Error("user with cars and tasks had an error being found");
-  }
-}
+// async function getUserTasksByID(id) {
+//   try {
+//     await checkUser(id);
+//     const user = await User.findByPk(id, {
+//       include: [Car, Task],
+//     });
+//     return user.get({ plain: true });
+//   } catch (error) {
+//     console.log(error);
+//     throw new Error("user with cars and tasks had an error being found");
+//   }
+// }
 
 async function getUserAllByID(id) {
   try {
@@ -183,7 +183,7 @@ module.exports = {
   getUsersAll,
   getUserByID,
   getUserCarsByID,
-  getUserTasksByID,
+  // getUserTasksByID,
   getUserAllByID,
   createUser,
   updateUser,

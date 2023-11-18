@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const { userController } = require('../controllers');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   if (req.session.loggedIn) {
 
-    // const usersWithTasks = userController.getUserTasksByID(req.session.userID);
+    const usersWithTasks = await userController.getUserCarsByID(req.session.userID);
+
+    console.log(usersWithTasks);
 
     res.render('userpage', {  });
   }
