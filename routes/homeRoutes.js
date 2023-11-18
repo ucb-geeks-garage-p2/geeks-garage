@@ -1,15 +1,19 @@
 const router = require('express').Router();
 const { userController } = require('../controllers');
+// const { carController } = require('../controllers/');
+
 
 router.get('/', async (req, res) => {
   if (req.session.loggedIn) {
 
-    const usersWithCars = await userController.getUserCarsByID(req.session.userID);
-
+    const result = await userController.getUserCarsByID(req.session.userID);
+    const usersWithCars = result;
     console.log(usersWithCars);
+    // console.log(result);
+    
 
-    res.render('userpage', {  });
-  }
+    res.render('userpage', { usersWithCars });
+  } else {
   // console.log('************** not logged in *************');
   
   const loginObj = {
@@ -20,6 +24,7 @@ router.get('/', async (req, res) => {
   }
 
   res.render('login-test', loginObj);
+  }
 });
 
 router.post('/login', async (req, res) => {
@@ -72,13 +77,37 @@ router.post('/logout', async (req, res) => {
   } else {
     res.render('login-test');
   }
-})
+});
 
 
 router.get('/more/:id', async (req, res) => {
   
 })
 
+
+// router.get('/userpage/:id', async (req, res) => {
+//   try {
+//     const userId = req.params.id;
+
+    
+//     // Use the controller function to get user data along with cars
+//     const userData = await userController.getUserAllByID(userId);
+
+//     if (!userData) {
+//       // Handle case where user is not found
+//       res.status(404).json({ message: 'User not found' });
+//       return;
+//     }
+
+//     // Render the user page with user data
+//     res.render('userPage', { user: userData });
+
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Internal Server Error' });
+//   }
+// });
+  
 
 
 module.exports = router;
