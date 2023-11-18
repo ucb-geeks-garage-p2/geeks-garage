@@ -13,6 +13,23 @@ async function checkUser(id) {
   }
 }
 
+async function checkUserByEmail(email) {
+  try {
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    });
+    if (!user) {
+      throw new Error("user with email does not exist");
+    }
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error(error);
+  }
+}
+
 async function getUsers() {
   // admin privileges
   try {
@@ -177,6 +194,7 @@ async function deleteUser(id) {
 
 module.exports = {
   checkUser,
+  checkUserByEmail,
   getUsers,
   getUsersCars,
   getUsersTasks,

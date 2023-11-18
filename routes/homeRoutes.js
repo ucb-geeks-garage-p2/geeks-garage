@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   
   const loginObj = {
     message: req.session.lastMessage,
-    isLogin: false,
+    isLogin: true,
     failedLogin: req.session.failedLogin ,
     failedSignUp: req.session.failedSignUp
   }
