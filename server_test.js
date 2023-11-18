@@ -3,13 +3,13 @@ const express = require("express");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const {
-  carController,
-  userController,
-  taskController,
-  noteController,
+// const {
+//   carController,
+//   userController,
+//   taskController,
+//   noteController,
 
-} = require('./controllers');
+// } = require('./controllers');
 const routes = require("./routes");
 
 // const helpers = require("./utils/helpers");

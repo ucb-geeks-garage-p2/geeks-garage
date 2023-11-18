@@ -4,9 +4,9 @@ const { userController } = require('../controllers');
 router.get('/', async (req, res) => {
   if (req.session.loggedIn) {
 
-    const usersWithTasks = await userController.getUserCarsByID(req.session.userID);
+    const usersWithCars = await userController.getUserCarsByID(req.session.userID);
 
-    console.log(usersWithTasks);
+    console.log(usersWithCars);
 
     res.render('userpage', {  });
   }
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   
   const loginObj = {
     message: req.session.lastMessage,
-    isLogin: false,
+    isLogin: true,
     failedLogin: req.session.failedLogin ,
     failedSignUp: req.session.failedSignUp
   }
@@ -24,25 +24,25 @@ router.get('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-      const dbUserData = await userController.checkUserByEmail(req.body.email);
+      const user = await userController.checkUserByEmail(req.body.email);
 
-      if (!dbUserData) {
+      if (!user) {
           req.session.lastMessage = "Incorrect email or password, please try again";
-          res.render('login', { failedLogin: true, message: req.session.lastMessage });
+          res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
           return;
       }
 
-      const validPassword = await dbUserData.checkPassword(req.body.password);
+      const validPassword = await user.checkPassword(req.body.password);
 
       if (!validPassword) {
           req.session.lastMessage = "Incorrect email or password, please try again";
-          res.render('login', { failedLogin: true, message: req.session.lastMessage });
+          res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
           return;
       }
 
-      req.session.save(() => {
+      await req.session.save(() => {
           req.session.loggedIn = true;
-          req.session.userId = dbUserData.id;
+          req.session.userID = user.id;
           console.log(
               'File: user-routes.js ~ req.session.save ~ req.session.cookie',
               req.session.cookie
@@ -53,6 +53,7 @@ router.post('/login', async (req, res) => {
           req.session.lastMessage = "your in the mainframe!";
 
           // console.log("---user logged in---");
+          res.status(200).json(user);
       });
   } catch (err) {
       console.log(err);

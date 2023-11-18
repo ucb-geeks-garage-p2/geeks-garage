@@ -4,6 +4,9 @@ const {
   Car,
   Note
 } = require('../models');
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
 
 const userData = require('./user-seeds.json');
 const carData = require('./car-seeds.json');
@@ -11,6 +14,22 @@ const taskData = require('./task-seeds.json');
 const noteData = require('./note-seeds.json');
 
 const sequelize = require('../config/connection');
+
+
+
+const sess = {
+  secret: "Super secret secret",
+  cookie: {
+    // Stored in milliseconds
+    maxAge: 24 * 60 * 60 * 1000, // expires after 1 day
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
 
 async function seedUsers() {
   let users = await User.bulkCreate(userData, {
