@@ -8,7 +8,9 @@
     "testmon": "nodemon ./server_test.js",
     "start": "node ./server.js",
     "watch": "nodemon ./server.js",
-    "seed": "node seeds/seed.js"
+    "seed": "node seeds/seed.js",
+    "refresh": "node seeds/seed.js && node ./server.js",
+    "refreshmon": "node seeds/seed.js && nodemon ./server.js"
   },
   "keywords": [],
   "author": "",
