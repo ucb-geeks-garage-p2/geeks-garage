@@ -10,8 +10,8 @@
   <h2>Cars</h2>
   <ul>
     {{#each usersWithCars.cars}}
-      <li>
-        <strong>Car ID:</strong> {{id}}<br>
+      <li data-car-id="{{id}}">
+        <strong class="car-id">Car ID:</strong> {{id}}<br>
         <strong>Make:</strong> {{make}}<br>
         <strong>Model:</strong> {{model}}<br>
         <strong>Year:</strong> {{year}}<br>
@@ -44,14 +44,14 @@
             <input type="text" id="dueBy" class="form-control" placeholder="Optional">
 
             <label for="carId">Car ID:</label>
-            <input type="text" id="carId" class="form-control" required>
+            <input type="text" id="carId" class="form-control"  value="{{usersWithCars.cars.[0].id}}" placeholder="Optional"required>
 
           </form>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="createTaskButton">Create Task</button>
+          <button type="button" class="btn btn-primary" id="createTaskForm">Create Task</button>
         </div>
       </div>
     </div>
