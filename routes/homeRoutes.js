@@ -13,15 +13,16 @@ router.get('/', async (req, res) => {
     // console.log(result);
     
 
-    //need to create a task route to create a few tasks in order to return object to userpage
-    //with this code below 
-    // const getUsersTasks = await taskController.getTaskByID(req.session.userID);
-    // const usersWithTasks = getUsersTasks;
-    // console.log(usersWithTasks);
+    // need to create a task route to create a few tasks in order to return object to userpage
+    // with this code below 
+    const getUsersTasks = await taskController.getTasks(req.session.userID);
+    const usersWithTasks = getUsersTasks;
+    console.log(usersWithTasks);
+    
 
-    // res.render('userpage', { usersWithCars, usersWithTasks });
+    res.render('userpage', { usersWithCars, usersWithTasks });
 
-    res.render('userpage', { usersWithCars });
+    // res.render('userpage', { usersWithCars });
   } else {
   // console.log('************** not logged in *************');
   
@@ -46,7 +47,7 @@ router.post('/', async (req, res) => {
       due_by,
       car_id
     });
-      res.status(201).json(newTask);
+      res.status(200).json(newTask);
   } catch (err) {
     res.status(500).json(err);
   }
