@@ -5,31 +5,36 @@
         <strong>Username:</strong> {{usersWithCars.username}}<br>
         <strong>Email:</strong> {{usersWithCars.email}}<br>
     </div>
+    <div class="">
+        <h2>Cars</h2>
+        <ul>
+            {{#each usersWithCars.cars}}
+            <li data-car-id="{{id}}">
+                <strong class="car-id">Car ID:</strong> {{id}}<br>
+                <strong>Make:</strong> {{make}}<br>
+                <strong>Model:</strong> {{model}}<br>
+                <strong>Year:</strong> {{year}}<br>
+                <strong>Mileage:</strong> {{mileage}}<br>
 
-    <h2>Cars</h2>
-    <ul>
-        {{#each usersWithCars.cars}}
-        <li data-car-id="{{id}}">
-            <strong class="car-id">Car ID:</strong> {{id}}<br>
-            <strong>Make:</strong> {{make}}<br>
-            <strong>Model:</strong> {{model}}<br>
-            <strong>Year:</strong> {{year}}<br>
-            <strong>Mileage:</strong> {{mileage}}<br>
-
-            <h3>Tasks</h3>
-            <ul>
-                {{#each tasks}}
-                <li>
-                    <strong>Task ID:</strong> {{id}}<br>
-                    <strong>Task Name:</strong> {{task_name}}<br>
-                    <strong>Created On:</strong> {{created_on}}<br>
-                    <strong>Due By:</strong> {{due_by}}<br>
+                <!-- Move the closing </li> tag here -->
                 </li>
-                {{/each}}
-            </ul>
-        </li>
-        {{/each}}
-    </ul>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="">
+        <h3>Tasks</h3>
+        <ul>
+            <!-- Fix the typo here: use usersWithTasks instead of usersWithTasks.tasks -->
+            {{#each usersWithTasks}}
+            <li>
+                <strong>Task ID:</strong> {{id}}<br>
+                <strong>Task Name:</strong> {{task_name}}<br>
+                <strong>Created On:</strong> {{created_on}}<br>
+                <strong>Due By:</strong> {{due_by}}<br>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
 </div>
 <button type="button" id="createTaskButton">Create Task</button>
 
