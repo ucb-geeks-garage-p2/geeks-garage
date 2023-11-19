@@ -1,16 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const createTaskButton = document.getElementById('createTaskButton'); // Change 'createTaskButton' to the actual ID of your button
+    const createTaskButton = document.getElementById('createTaskButton');
+    const createTaskModal = new bootstrap.Modal(document.getElementById('createTaskModal'));
+    const createTaskForm = document.getElementById('createTaskForm');
   
     if (createTaskButton) {
-      createTaskButton.addEventListener('click', async () => {
-        try {
-          // Collect task data from the user input (adjust as needed)
-          const taskName = document.getElementById('taskNameInput').value;
-          const createdOn = Date.now(); // Assuming you want to set the creation time on the client side
-          const dueBy = document.getElementById('dueByInput').value;
-          const carId = document.getElementById('carIdInput').value;
+      createTaskButton.addEventListener('click', () => {
+        createTaskModal.show();
+      });
+    }
   
-          // Send a POST request to create a new task
+    if (createTaskForm) {
+      createTaskForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+  
+        const taskName = document.getElementById('taskNameInput').value.trim();
+        const createdOn = Date.now();
+        const dueBy = document.getElementById('dueByInput').value.trim();
+        const carId = document.getElementById('carIdInput').value.trim();
+  
+        try {
           const response = await fetch('/tasks', {
             method: 'POST',
             headers: {
@@ -28,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newTask = await response.json();
             console.log('New task created:', newTask);
             // Handle success, e.g., show a success message or redirect to another page
+            createTaskModal.hide(); // Hide the modal after successful creation
           } else {
             console.error('Failed to create task:', response.status, response.statusText);
             // Handle failure, e.g., show an error message to the user
