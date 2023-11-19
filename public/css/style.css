@@ -3,6 +3,7 @@
   --primary-color60: #dde6ed;
   --secondary-color30: #9db2bf;
   --tertiary-color10: #27374d;
+  --active-color3: #ff8c00;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
@@ -17,14 +18,14 @@ a,a:hover{
 .myform-area{
   overflow: hidden;
   padding: 60px 0;
-  background: #f4fffe;
+  background: #34b0a6;
   position: relative;
   padding-top: 100px;
   padding-bottom: 100px;
 }
 .myform-area .form-area{
   position: relative;
-  background: rgba(103,58,183,0.7);
+  background: var(--tertiary-color10);
   width: 100%;
   height: 400px;
   overflow: hidden;
@@ -129,7 +130,7 @@ a,a:hover{
 
 .myform-area .form-area .form-input input,
 .myform-area .form-area .form-input textarea{
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -142,7 +143,7 @@ a,a:hover{
 }
 .myform-area .form-area .form-input form .form-group label{
     position: absolute;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     top: 20px;
     left: 0;
     pointer-events: none;
@@ -158,22 +159,22 @@ a,a:hover{
     top: -5px;
     opacity: 0;
     left: 0;
-    color: rgba(103,58,183);
+    color: var(--tertiary-color10);
     font-size: 12px;
-    color: #07315B;
+    /* color: #07315B; */
     font-weight: bold;
 }
 .myform-area .form-area .form-input input:focus,
 .myform-area .form-area .form-input textarea:focus,
 .myform-area .form-area .form-input input:valid,
 .myform-area .form-area .form-input textarea:valid{
-    border-bottom: 2px solid rgba(103,58,183);
+    border-bottom: 2px solid var(--tertiary-color10);
 }
 .myform-area .form-area .form-text{
     margin-top: 30px;
 }
 .myform-area .form-area .form-text span a{
-    color: rgba(103,58,183);
+    color: var(--tertiary-color10);
 }
 .myform-area .form-area .myform-button{
     margin-top: 30px;
@@ -182,7 +183,7 @@ a,a:hover{
     width: 100%;
     height: 50px;
     font-size: 17px;
-    background: rgba(103,58,183);
+    background: var(--tertiary-color10);
     border: none;
     border-radius: 50px;
     color: #fff;
@@ -192,5 +193,42 @@ a,a:hover{
     transition: all .5s;
 }
 .myform-area .form-area .myform-button .myform-btn:hover{
-    background: #07315B;
+    /* background: #12dbb3; */
+    border: solid 3px #ff7700;
+    text-shadow: 1px 1px 2px black;
+    color: #ff7700;
+}
+
+form > p {
+  text-align: center;
+  margin: auto;
+}
+
+#neubar {
+  background: #fae8d2;
+  box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+}
+
+.nav-item .active {
+  border-radius: 6px;
+  background: linear-gradient(145deg, #ffe7ca, #f5d7b2);
+  box-shadow:  4px 4px 8px #ddc1a0,
+               -4px -4px 8px #f7e5cc;
+}
+#neubar .dropdown-menu a:hover {
+  color: #454545
+}
+#neubar .nav-item {
+  margin : auto 4px;
+}
+#neubar a {
+
+  padding-left:12px;
+  padding-right:12px;
+}
+#neubar .dropdown-menu {
+  background : #545454
+}
+a.navbar-brand {
+  color: #454545
 }

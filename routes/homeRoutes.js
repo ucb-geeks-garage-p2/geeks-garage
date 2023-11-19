@@ -52,7 +52,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-
 router.post('/login', async (req, res) => {
   try {
     const user = await userController.checkUserByEmail(req.body.email);
@@ -63,7 +62,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await user.checkPassword(req.body.password);
+    const validPassword = user.checkPassword(req.body.password);
 
     if (!validPassword) {
       req.session.lastMessage = "Incorrect email or password, please try again";
@@ -92,18 +91,29 @@ router.post('/login', async (req, res) => {
     req.session.failedLogin = true;
     res.status(500).json(err);
   }
-})
+});
 
 router.post('/logout', async (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       // console.log("---user logged out---");
-      res.render('login');
+      res.redirect(200, '/');
     });
   } else {
-    res.render('login');
+    res.redirect('/');
   }
 });
+
+router.get('/signup', async (req, res) => {
+  const loginObj = {
+    message: req.session.lastMessage,
+    isLogin: false,
+    failedLogin: req.session.failedLogin ,
+    failedSignUp: req.session.failedSignUp
+  }
+
+  res.render('login', loginObj);
+})
 
 
 router.get('/more/:id', async (req, res) => {
