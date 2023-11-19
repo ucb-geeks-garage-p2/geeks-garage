@@ -97,15 +97,13 @@ router.post("/", async (req, res) => {
       created_on,
       due_by,
       car_id,
-
-      req.session.lastView = "home";
-
-      req.session.lastMessage = "your in the mainframe!";
-
-      // console.log("---user logged in---");
-      res.status(200).json(user);
-
     });
+
+    req.session.lastView = "home";
+    req.session.lastMessage = "your in the mainframe!";
+
+    // console.log("---user logged in---");
+    res.status(200).json(newTask);
   } catch (err) {
     console.log(err);
     req.session.failedSignUp = false;
