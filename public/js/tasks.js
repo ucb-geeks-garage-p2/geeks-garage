@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
-          const newTask = await response.json();
+        //   const newTask = await response.json();
+        document.location.replace('/');
           console.log('New task created:', newTask);
           // Handle success, e.g., show a success message or redirect to another page
           createTaskModal.hide(); // Hide the modal after successful creation

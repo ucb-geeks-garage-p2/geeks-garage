@@ -12,14 +12,24 @@ async function checkTask(id) {
     throw Error(error);
   }
 }
-//
+//old get tasks function 
+// async function getTasks() {
+//   try {
+//     const tasks = await Task.findAll();
+//     return tasks.get({ plain: true });
+//   } catch (error) {
+//     console.log(error);
+//     throw new Error("there was an error getting tasks");
+//   }
+// }
+
 async function getTasks() {
   try {
     const tasks = await Task.findAll();
-    return tasks.get({ plain: true });
+    return tasks.map((task) => task.get({ plain: true }));
   } catch (error) {
     console.log(error);
-    throw new Error("there was an error getting tasks");
+    throw new Error("There was an error getting tasks");
   }
 }
 
