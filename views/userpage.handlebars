@@ -16,6 +16,18 @@
         <strong>Model:</strong> {{model}}<br>
         <strong>Year:</strong> {{year}}<br>
         <strong>Mileage:</strong> {{mileage}}<br>
+        
+        <h3>Tasks</h3>
+        <ul>
+          {{#each tasks}}
+            <li>
+              <strong>Task ID:</strong> {{id}}<br>
+              <strong>Task Name:</strong> {{task_name}}<br>
+              <strong>Created On:</strong> {{created_on}}<br>
+              <strong>Due By:</strong> {{due_by}}<br>
+            </li>
+          {{/each}}
+        </ul>
       </li>
     {{/each}}
   </ul>
