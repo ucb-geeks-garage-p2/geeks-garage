@@ -7,8 +7,7 @@ const { taskController } = require('../controllers/');
 router.get('/', async (req, res) => {
   if (req.session.loggedIn) {
 
-    const getUsersCars = await userController.getUserCarsByID(req.session.userID);
-    const usersWithCars = getUsersCars;
+    const usersWithCars = await userController.getUserCarsByID(req.session.userID);
     console.log(usersWithCars);
     // console.log(result);
     
