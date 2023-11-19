@@ -1,16 +1,25 @@
 const router = require('express').Router();
 const { userController } = require('../controllers');
-// const { carController } = require('../controllers/');
+const { carController } = require('../controllers/');
+const { taskController } = require('../controllers/');
 
 
 router.get('/', async (req, res) => {
   if (req.session.loggedIn) {
 
-    const result = await userController.getUserCarsByID(req.session.userID);
-    const usersWithCars = result;
+    const getUsersCars = await userController.getUserCarsByID(req.session.userID);
+    const usersWithCars = getUsersCars;
     console.log(usersWithCars);
     // console.log(result);
     
+
+    //need to create a task route to create a few tasks in order to return object to userpage
+    //with this code below 
+    // const getUsersTasks = await taskController.getTaskByID(req.session.userID);
+    // const usersWithTasks = getUsersTasks;
+    // console.log(usersWithTasks);
+
+    // res.render('userpage', { usersWithCars, usersWithTasks });
 
     res.render('userpage', { usersWithCars });
   } else {
@@ -26,6 +35,23 @@ router.get('/', async (req, res) => {
   res.render('login-test', loginObj);
   }
 });
+
+router.post('/', async (req, res) => {
+  try {
+    const { task_name, created_on, due_by, car_id } = req.body;
+
+    const newTask = await taskController.createTask({
+      task_name,
+      created_on,
+      due_by,
+      car_id
+    });
+      res.status(201).json(newTask);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 
 router.post('/login', async (req, res) => {
   try {
@@ -83,6 +109,8 @@ router.post('/logout', async (req, res) => {
 router.get('/more/:id', async (req, res) => {
   
 })
+
+
 
 
 // router.get('/userpage/:id', async (req, res) => {
