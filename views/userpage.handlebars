@@ -1,95 +1,66 @@
-{{!-- Route for main somewhere in here --}}
 
-{{!-- The text placeholder below can be used on LP for "what the app does cards"? or once signed in,
-it can be changed to read something like "view your cars below" --}}
-<div class="garage">Welcome To Your Garage!</div>
-<a href="/garage" class="card-link-wrapper hvr-grow">
-    <div class="card-container">
-        {{!-- This will be one car/vehicle, not sure if we want to make this into a partial, but for an MVP,
-        this is to at least have something on the page, will add two more below --}}
-        <div class="card-container">
-            <div class="card" style="width: 18rem;">
-                <div class="card bg-dark text-white" style="max-width: 600px;">
-                    <img src="/images/suvstock.jpg" class="card-img card-img-top" alt="SUV" />
-                    <div class="card-img-overlay" style="background-color: #9DB2BF">
-                        <h5 class="card-title location-text">Parking Space 1</h5>
-                    </div>
-                </div>
-                <div class="card-body card-color">
-                    <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>This can be a
-                        task
-                        inserted</p>
-                    <hr class="hr" />
-                    <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>This can be
-                        another
-                        task</p>
-                    <hr class="hr" />
-                    <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>One last task
-                    </p>
-                    <hr class="hr" />
-                    {{!-- The p elements above can be replicated as needed, or used for user input with a bit of
-                    editing. My
-                    thought here is
-                    to layout the framework and if the user input is going to be in this section, we can tweak it
-                    instead of
-                    having a placeholder --}}
-                </div>
-            </div>
-</a>
-<a href="/garage" class="card-link-wrapper hvr-grow">
-    <div class="card" style="width: 18rem;">
-        <div class="card bg-dark text-white" style="max-width: 600px;">
-            <img src="/images/sedanstock.jpeg" class="card-img card-img-top" alt="Sedan" />
-            <div class="card-img-overlay" style="background-color: #9DB2BF">
-                <h5 class="card-title location-text">Parking Space 2</h5>
-            </div>
-        </div>
-        <div class="card-body card-color">
-            <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>This can be a task
-                inserted</p>
-            <hr class="hr" />
-            <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>This can be
-                another
-                task</p>
-            <hr class="hr" />
-            <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>One last task</p>
-            <hr class="hr" />
-            {{!-- The p elements above can be replicated as needed, or used for user input with a bit of
-            editing. My
-            thought here is
-            to layout the framework and if the user input is going to be in this section, we can tweak it
-            instead of
-            having a placeholder --}}
-        </div>
-    </div>
-</a>
+<div class="">
+    <h1>User Profile</h1>
+  <div>
+    <strong>User ID:</strong> {{usersWithCars.id}}<br>
+    <strong>Username:</strong> {{usersWithCars.username}}<br>
+    <strong>Email:</strong> {{usersWithCars.email}}<br>
+  </div>
 
-<a href="/garage" class="card-link-wrapper hvr-grow">
-    <div class="card" style="width: 18rem;">
-        <div class="card bg-dark text-white" style="max-width: 600px;">
-            <img src="/images/pickupstock.jpg" class="card-img card-img-top" alt="Pickup" />
-            <div class="card-img-overlay" style="background-color: #9DB2BF">
-                <h5 class="card-title location-text">Parking Space 3</h5>
-            </div>
+  <h2>Cars</h2>
+  <ul>
+    {{#each usersWithCars.cars}}
+      <li>
+        <strong>Car ID:</strong> {{id}}<br>
+        <strong>Make:</strong> {{make}}<br>
+        <strong>Model:</strong> {{model}}<br>
+        <strong>Year:</strong> {{year}}<br>
+        <strong>Mileage:</strong> {{mileage}}<br>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+   <button type="button" id="createTaskButton">Create Task</button>
+  </form>
+
+ <!-- Modal -->
+  <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="card-body card-color">
-            <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>This can be a task
-                inserted</p>
-            <hr class="hr" />
-            <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>This can be
-                another
-                task</p>
-            <hr class="hr" />
-            <p class="card-text card-text-color"><i class="bi bi-person-circle card-icon"></i>One last task</p>
-            <hr class="hr" />
-            {{!-- The p elements above can be replicated as needed, or used for user input with a bit of
-            editing. My
-            thought here is
-            to layout the framework and if the user input is going to be in this section, we can tweak it
-            instead of
-            having a placeholder --}}
+        <div class="modal-body">
+
+          <!-- Task creation form -->
+          <form id="createTaskForm">
+            <label for="taskName">Task Name:</label>
+            <input type="text" id="taskName" class="form-control" required>
+
+            <label for="dueBy">Due By:</label>
+            <input type="text" id="dueBy" class="form-control" placeholder="Optional">
+
+            <label for="carId">Car ID:</label>
+            <input type="text" id="carId" class="form-control" required>
+
+          </form>
+
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="createTaskButton">Create Task</button>
+        </div>
+      </div>
     </div>
-</a>
-</div>
-</div>
+  </div>
+
+  <!-- Include your task.js script here -->
+  <script src="/js/tasks.js"></script>
+
+  <!-- Add Bootstrap JS and Popper.js scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
