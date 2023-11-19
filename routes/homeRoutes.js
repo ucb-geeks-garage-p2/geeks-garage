@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
     failedSignUp: req.session.failedSignUp
   }
 
-  res.render('login-test', loginObj);
+  res.render('login', loginObj);
   }
 });
 
@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       req.session.lastMessage = "Incorrect email or password, please try again";
-      res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
+      res.render('login', { failedLogin: true, message: req.session.lastMessage });
       return;
     }
 
@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
 
     if (!validPassword) {
       req.session.lastMessage = "Incorrect email or password, please try again";
-      res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
+      res.render('login', { failedLogin: true, message: req.session.lastMessage });
       return;
     }
 
@@ -98,10 +98,10 @@ router.post('/logout', async (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       // console.log("---user logged out---");
-      res.render('login-test');
+      res.render('login');
     });
   } else {
-    res.render('login-test');
+    res.render('login');
   }
 });
 
