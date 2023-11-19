@@ -5,37 +5,37 @@ const { taskController } = require("../controllers/");
 
 
 
-router.get("/", async (req, res) => {
-  if (req.session.loggedIn) {
-    const getUsersCars = await userController.getUserCarsByID(
-      req.session.userID
-    );
-    const usersWithCars = getUsersCars;
-    console.log(usersWithCars);
-    // console.log(result);
+// router.get("/", async (req, res) => {
+//   if (req.session.loggedIn) {
+//     const getUsersCars = await userController.getUserCarsByID(
+//       req.session.userID
+//     );
+//     const usersWithCars = getUsersCars;
+//     console.log(usersWithCars);
+//     // console.log(result);
 
-    // need to create a task route to create a few tasks in order to return object to userpage
-    // with this code below
-    // const getUsersTasks = await taskController.getTasks(req.session.userID);
-    // const usersWithTasks = getUsersTasks;
-    // console.log(usersWithTasks);
+//     // need to create a task route to create a few tasks in order to return object to userpage
+//     // with this code below
+//     // const getUsersTasks = await taskController.getTasks(req.session.userID);
+//     // const usersWithTasks = getUsersTasks;
+//     // console.log(usersWithTasks);
 
-    // res.render("userpage", { usersWithCars, usersWithTasks });
+//     // res.render("userpage", { usersWithCars, usersWithTasks });
 
-    res.render('userpage', { usersWithCars });
-  } else {
-    // console.log('************** not logged in *************');
+//     res.render('userpage', { usersWithCars });
+//   } else {
+//     // console.log('************** not logged in *************');
 
-    const loginObj = {
-      message: req.session.lastMessage,
-      isLogin: true,
-      failedLogin: req.session.failedLogin,
-      failedSignUp: req.session.failedSignUp,
-    };
+//     const loginObj = {
+//       message: req.session.lastMessage,
+//       isLogin: true,
+//       failedLogin: req.session.failedLogin,
+//       failedSignUp: req.session.failedSignUp,
+//     };
 
-    res.render("login-test", loginObj);
-  }
-});
+//     res.render("login-test", loginObj);
+//   }
+// });
 
 router.post("/", async (req, res) => {
 
@@ -56,35 +56,32 @@ router.post("/", async (req, res) => {
 
 
 
-router.get("/", async (req, res) => {
-  if (req.session.loggedIn) {
-    const getUsersCars = await userController.getUserCarsByID(
-      req.session.userID
-    );
-    const usersWithCars = getUsersCars;
-    console.log(usersWithCars);
-    // console.log(result);
+router.get('/', async (req, res) => {
+  try {
+    if (req.session.loggedIn) {
+      // Retrieve user cars
+      const getUsersCars = await userController.getUserCarsByID(req.session.userID);
+      const usersWithCars = getUsersCars;
+      console.log(usersWithCars);
+      // Retrieve user tasks
+      const getUsersTasks = await taskController.getTasks(req.session.userID);
+      const usersWithTasks = getUsersTasks;
+      console.log(usersWithTasks);
+      // Render the userpage with user cars and tasks
+      res.render('userpage', { usersWithCars, usersWithTasks });
+    } else {
+      const loginObj = {
+        message: req.session.lastMessage,
+        isLogin: true,
+        failedLogin: req.session.failedLogin,
+        failedSignUp: req.session.failedSignUp,
+      };
 
-    // need to create a task route to create a few tasks in order to return object to userpage
-    // with this code below
-    const getUsersTasks = await taskController.getTasks(req.session.userID);
-    const usersWithTasks = getUsersTasks;
-    console.log(usersWithTasks);
-
-    res.render("userpage", { usersWithCars, usersWithTasks });
-
-    // res.render('userpage', { usersWithCars });
-  } else {
-    // console.log('************** not logged in *************');
-
-    const loginObj = {
-      message: req.session.lastMessage,
-      isLogin: true,
-      failedLogin: req.session.failedLogin,
-      failedSignUp: req.session.failedSignUp,
-    };
-
-    res.render("login-test", loginObj);
+      res.render('login-test', loginObj);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
