@@ -28,17 +28,17 @@
               <a class="nav-link mx-2 active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" href="/">Profile</a>
+              <a class="nav-link mx-2 active" href="/">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" href="/">Sign Out</a>
+              <a class="nav-link mx-2 active" href="/logout">Sign Out</a>
             </li>
             {{else}}
             <li class="nav-item">
               <a class="nav-link mx-2 active" href="/">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-2" href="/signup">Sign Up</a>
+              <a class="nav-link mx-2 active" href="/signup">Sign Up</a>
             </li>
             {{/if}}
 
@@ -57,7 +57,7 @@
   </footer>
 
   {{#if logged_in}}
-  <script src="/js/logout.js"></script>
+  {{!-- <script src="/js/logout.js"></script> --}}
   {{/if}}
 </body>
 

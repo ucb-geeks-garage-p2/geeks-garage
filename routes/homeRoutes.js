@@ -18,8 +18,13 @@ router.get('/', async (req, res) => {
     const usersWithTasks = getUsersTasks;
     console.log(usersWithTasks);
     
+    const viewObj = {
+      logged_in: req.session.loggedIn,
+      usersWithCars,
+      usersWithTasks
+    }
 
-    res.render('userpage', { usersWithCars, usersWithTasks });
+    res.render('userpage', viewObj);
 
     // res.render('userpage', { usersWithCars });
   } else {
@@ -93,11 +98,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/logout', async (req, res) => {
+router.get('/logout', async (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       // console.log("---user logged out---");
-      res.redirect(200, '/');
+      res.redirect('/');
     });
   } else {
     res.redirect('/');
