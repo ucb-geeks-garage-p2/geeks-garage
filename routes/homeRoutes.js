@@ -3,6 +3,8 @@ const { userController } = require("../controllers");
 const { carController } = require("../controllers/");
 const { taskController } = require("../controllers/");
 
+
+
 router.get("/", async (req, res) => {
   if (req.session.loggedIn) {
     const getUsersCars = await userController.getUserCarsByID(
@@ -36,6 +38,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+
   try {
     const { task_name, created_on, due_by, car_id } = req.body;
 
@@ -51,37 +54,49 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+
+
+router.get("/", async (req, res) => {
+  if (req.session.loggedIn) {
+    const getUsersCars = await userController.getUserCarsByID(
+      req.session.userID
+    );
+    const usersWithCars = getUsersCars;
+    console.log(usersWithCars);
+    // console.log(result);
+
+    // need to create a task route to create a few tasks in order to return object to userpage
+    // with this code below
+    const getUsersTasks = await taskController.getTasks(req.session.userID);
+    const usersWithTasks = getUsersTasks;
+    console.log(usersWithTasks);
+
+    res.render("userpage", { usersWithCars, usersWithTasks });
+
+    // res.render('userpage', { usersWithCars });
+  } else {
+    // console.log('************** not logged in *************');
+
+    const loginObj = {
+      message: req.session.lastMessage,
+      isLogin: true,
+      failedLogin: req.session.failedLogin,
+      failedSignUp: req.session.failedSignUp,
+    };
+
+    res.render("login-test", loginObj);
+  }
+});
+
+router.post("/", async (req, res) => {
   try {
-    const user = await userController.checkUserByEmail(req.body.email);
-
-    if (!user) {
-      req.session.lastMessage = "Incorrect email or password, please try again";
-      res.render("login-test", {
-        failedLogin: true,
-        message: req.session.lastMessage,
-      });
-      return;
-    }
-
-    const validPassword = await user.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      req.session.lastMessage = "Incorrect email or password, please try again";
-      res.render("login-test", {
-        failedLogin: true,
-        message: req.session.lastMessage,
-      });
-      return;
-    }
-
-    await req.session.save(() => {
-      req.session.loggedIn = true;
-      req.session.userID = user.id;
-      console.log(
-        "File: user-routes.js ~ req.session.save ~ req.session.cookie",
-        req.session.cookie
-      );
+    const { task_name, created_on, due_by, car_id } = req.body;
+    console.log('Request body: ', req.body);
+    const newTask = await taskController.createTask({
+      task_name,
+      created_on,
+      due_by,
+      car_id,
 
       req.session.lastView = "home";
 
@@ -89,6 +104,7 @@ router.post("/login", async (req, res) => {
 
       // console.log("---user logged in---");
       res.status(200).json(user);
+
     });
   } catch (err) {
     console.log(err);
