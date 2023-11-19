@@ -1,58 +1,55 @@
 :root {
-    /* We can change the names of the element as needed, just want to put placeholders in to start calling if needed */
-    --primary-color60: #DDE6ED;
-    --secondary-color30: #9DB2BF;
-    --tertiary-color10: #27374D;
-
-
-
+  /* We can change the names of the element as needed, just want to put placeholders in to start calling if needed */
+  --primary-color60: #dde6ed;
+  --secondary-color30: #9db2bf;
+  --tertiary-color10: #27374d;
 }
 
 body {
-    position: relative;
-    background-color: var(--primary-color60);
+  position: relative;
+  background-color: var(--primary-color60);
 }
 
 .navbar {
-    background-color: var(--secondary-color30);
+  background-color: var(--secondary-color30);
 }
 
 .navbar-brand {
-    color: var(--tertiary-color10);
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content;
-    margin-right: 0px;
-    text-align: left;
+  color: var(--tertiary-color10);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  margin-right: 0px;
+  text-align: left;
 }
 
 .navbar-nav {
-    margin-left: auto;
-    padding-right: 1rem;
-  }
+  margin-left: auto;
+  padding-right: 1rem;
+}
 
-  .login-nav-Btn {
-    margin-right: 0.5rem;
-    width: 6rem;
-    border-width: 1.3px;
-    background: var(--secondary-color30);
-    font-family: "Arial", sans-serif;
-    font-weight: bold;
-    color: #ffffff;
-  }
+.login-nav-Btn {
+  margin-right: 0.5rem;
+  width: 6rem;
+  border-width: 1.3px;
+  background: var(--secondary-color30);
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+}
 
-  .container {
-    margin-left: auto;
-  }
+.container {
+  margin-left: auto;
+}
 
-  footer {
-    margin-top: 2rem;
-  }
+footer {
+  margin-top: 2rem;
+}
 
-  @media (max-width: 791px) {
-    .navbar-brand {
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
+@media (max-width: 791px) {
+  .navbar-brand {
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
+}

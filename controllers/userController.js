@@ -13,6 +13,23 @@ async function checkUser(id) {
   }
 }
 
+async function checkUserByEmail(email) {
+  try {
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    });
+    if (!user) {
+      throw new Error("user with email does not exist");
+    }
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw Error(error);
+  }
+}
+
 async function getUsers() {
   // admin privileges
   try {
@@ -84,18 +101,18 @@ async function getUserCarsByID(id) {
   }
 }
 
-async function getUserTasksByID(id) {
-  try {
-    await checkUser(id);
-    const user = await User.findByPk(id, {
-      include: [Car, Task],
-    });
-    return user.get({ plain: true });
-  } catch (error) {
-    console.log(error);
-    throw new Error("user with cars and tasks had an error being found");
-  }
-}
+// async function getUserTasksByID(id) {
+//   try {
+//     await checkUser(id);
+//     const user = await User.findByPk(id, {
+//       include: [Car, Task],
+//     });
+//     return user.get({ plain: true });
+//   } catch (error) {
+//     console.log(error);
+//     throw new Error("user with cars and tasks had an error being found");
+//   }
+// }
 
 async function getUserAllByID(id) {
   try {
@@ -177,13 +194,14 @@ async function deleteUser(id) {
 
 module.exports = {
   checkUser,
+  checkUserByEmail,
   getUsers,
   getUsersCars,
   getUsersTasks,
   getUsersAll,
   getUserByID,
   getUserCarsByID,
-  getUserTasksByID,
+  // getUserTasksByID,
   getUserAllByID,
   createUser,
   updateUser,
