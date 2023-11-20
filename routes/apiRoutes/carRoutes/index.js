@@ -29,7 +29,19 @@ router.route('/:id')
         }
     })
     .put(async (req, res) => {
-
+        if (req.session.loggedIn) {
+            try {
+                const updatedCar = await carController.updateCar(req.params.id, req.body);
+                console.log(updatedCar, "--------updated car dataset here--------");
+                
+                res.status(200).json(updatedCar);
+            } catch (err) {
+                console.log(err);
+                res.status(500).json(err);
+            }
+        } else {
+            res.status(500).json(err);
+        }
     })
     .delete(async (req, res) => {
 

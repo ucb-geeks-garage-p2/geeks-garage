@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const createTaskModal = new bootstrap.Modal(document.getElementById('createTaskModal'));
     const createTaskButtonModal = document.getElementById('createTaskButtonModal');
     const updateCarButton = document.getElementById('updateCarButton');
+    const updateCarModal = new bootstrap.Modal(document.getElementById('updateCarModal'));
+    const updateCarButtonModal = document.getElementById('updateCarButtonModal');
     const deleteButtons = document.querySelectorAll('deleteTaskButton');
 
 
@@ -14,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const taskName = document.getElementById('taskName').value.trim();
         const createdOn = Date.now();
-        const dueBy = document.getElementById('dueBy').value.trim();
-        const carId = document.getElementById('carId').value.trim();
+        const dueBy = document.getElementById('dueBy').value.trim() || null;
+        const carId = document.getElementById('carInfoStore').dataset.carid;
 
         try {
             const response = await fetch('/api/tasks', {
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 console.log('New task created');
                 // Handle success, e.g., show a success message or redirect to another page
-                document.location.replace('/');
+                document.location.replace(`/api/cars/${carId}`);
             } else {
                 console.error('Failed to create task:', response.status, response.statusText);
                 // Handle failure, e.g., show an error message to the user
@@ -46,6 +48,49 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle unexpected errors
         }
     };
+
+    const updateCarButtonModalHandler = async (event) => {
+        event.preventDefault();
+        event.stopPropagation(); // Prevent the event from reaching parent elements
+
+        console.log('updateCarForm hit');
+
+        const make = document.getElementById('carMake').value.trim() || null;
+        const model = document.getElementById('carModel').value.trim() || null;
+        const year = document.getElementById('carYear').value.trim() || null;
+        const mileage = document.getElementById('carMileage').value.trim() || null;
+        const carId = document.getElementById('carInfoStore').dataset.carid;
+
+        try {
+            const response = await fetch(`/api/cars/${carId}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    make,
+                    model,
+                    year,
+                    mileage,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            updateCarModal.hide();
+
+            if (response.ok) {
+                console.log('car was updated');
+                // Handle success, e.g., show a success message or redirect to another page
+                document.location.replace(`/api/cars/${carId}`);
+            } else {
+                console.error('Failed to update car:', response.status, response.statusText);
+                // Handle failure, e.g., show an error message to the user
+            }
+        } catch (error) {
+            console.error('Error updating task:', error);
+            // Handle unexpected errors
+        }
+    };
+
 
     if (deleteButtons) {
         deleteButtons.forEach((button) => {
@@ -77,8 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (updateCarButton) {
         updateCarButton.addEventListener('click', () => {
-
+            updateCarModal.show();
         })
+    }
+
+    if (updateCarButtonModal) {
+        updateCarButtonModal.addEventListener('click', updateCarButtonModalHandler);
     }
 
 });

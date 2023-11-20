@@ -1,5 +1,5 @@
 <section class="d-flex my-4" style="justify-content: space-around;">
-  <h2 class="d-inline">{{carWithTasks.make}} {{carWithTasks.model}} - {{carWithTasks.year}}</h2>
+  <h2 class="d-inline" id="carInfoStore" data-carid="{{carWithTasks.id}}">{{carWithTasks.make}} {{carWithTasks.model}} - {{carWithTasks.year}}</h2>
   <div>
   <button class="btn btn-outline-secondary" id="createTaskButton">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
@@ -29,7 +29,7 @@
   </section>
 </section>
 
-<!-- Modal -->
+<!-- Add Task Modal -->
 <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -50,6 +50,38 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="createTaskButtonModal">Create Task</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Car Modal -->
+<div class="modal fade" id="updateCarModal" tabindex="-1" role="dialog" aria-labelledby="updateCarModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateCarModalLabel">Update {{carWithTasks.make}} {{carWithTasks.model}}</h5>
+      </div>
+      <div class="modal-body">
+        <!-- Task creation form -->
+        <form>
+          <label for="carMake">Make: </label>
+          <input type="text" id="carMake" class="form-control" value="{{carWithTasks.make}}">
+
+          <label for="carModel">Model: </label>
+          <input type="text" id="carModel" class="form-control" value="{{carWithTasks.model}}">
+
+          <label for="carYear">Year: </label>
+          <input type="text" id="carYear" class="form-control" value="{{carWithTasks.year}}">
+
+          <label for="carMileage">Mileage: </label>
+          <input type="text" id="carMileage" class="form-control" value="{{carWithTasks.mileage}}">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="updateCarButtonModal">Update Car</button>
       </div>
     </div>
   </div>

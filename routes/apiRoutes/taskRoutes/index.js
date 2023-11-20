@@ -14,7 +14,7 @@ router.route('/')
             due_by,
             car_id
           });
-            res.redirect(`/api/cars/${car_id}`);
+            res.status(200).json(newTask);
         } catch (err) {
           res.status(500).json(err);
         }
