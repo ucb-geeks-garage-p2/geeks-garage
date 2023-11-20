@@ -1,19 +1,24 @@
 <h1>Welcome To Your Garage!</h1>
 
-<section>
-  <h2>Cars</h2>
-  <button class="btn btn-outline-secondary">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
-      viewBox="0 0 16 16">
-      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-    </svg>
+<section class="d-flex my-3" style="justify-content: space-around;">
+  <h2 class="d-inline">Cars</h2>
+  <div>
+    <button class="btn btn-outline-secondary" id="createTaskButton">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
+        viewBox="0 0 16 16">
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+      </svg>
       Add Car
-  </button>
-</section>
-<section class="container">
-    <section class="flex-row justify-center">
-    {{#each userWithCars.cars as |car|}}
-    {{> car-details}}
-    {{/each}}
+    </button>
+  </div>
   </section>
-</section>
+  <section class="container">
+    <section class="flex-row justify-center">
+      {{#each carsWithTasks as |car|}}
+      {{> car-details}}
+      {{/each}}
+    </section>
+  </section>
+
+  <script src="/js/userpage.js"></script>

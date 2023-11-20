@@ -10,45 +10,46 @@ router.get('/', async (req, res) => {
     const userWithCars = await userController.getUserCarsByID(req.session.userID);
     console.log(userWithCars, "--------user dataset here--------");
     // console.log(result);
-    
 
-    
+    const getCarTasks = async (car) => {
+      const tasks = await carController.getCarTasksByID(car.id);
+      return tasks;
+    }
+
+    const getCarsWithTasks = async () => {
+      const promises = userWithCars.cars.map(async (car) => {
+        return await getCarTasks(car);
+      })
+      
+      const results = await Promise.all(promises);
+      return results;
+    }
+
+    const carsWithTasks = await getCarsWithTasks();
+
+    console.log(carsWithTasks);
+
+
     const viewObj = {
       logged_in: req.session.loggedIn,
-      userWithCars,
-      
+      carsWithTasks,
+
     }
 
     res.render('userpage', viewObj);
 
     // res.render('userpage', { userWithCars });
   } else {
-  // console.log('************** not logged in *************');
-  
-  const loginObj = {
-    message: req.session.lastMessage,
-    isLogin: true,
-    failedLogin: req.session.failedLogin ,
-    failedSignUp: req.session.failedSignUp
-  }
+    // console.log('************** not logged in *************');
 
-  res.render('login', loginObj);
-  }
-});
+    const loginObj = {
+      message: req.session.lastMessage,
+      isLogin: true,
+      failedLogin: req.session.failedLogin,
+      failedSignUp: req.session.failedSignUp
+    }
 
-router.post('/', async (req, res) => {
-  try {
-    const { task_name, created_on, due_by, car_id } = req.body;
-
-    const newTask = await taskController.createTask({
-      task_name,
-      created_on,
-      due_by,
-      car_id
-    });
-      res.status(200).json(newTask);
-  } catch (err) {
-    res.status(500).json(err);
+    res.render('login', loginObj);
   }
 });
 
@@ -108,7 +109,7 @@ router.get('/signup', async (req, res) => {
   const loginObj = {
     message: req.session.lastMessage,
     isLogin: false,
-    failedLogin: req.session.failedLogin ,
+    failedLogin: req.session.failedLogin,
     failedSignUp: req.session.failedSignUp
   }
 
@@ -116,36 +117,9 @@ router.get('/signup', async (req, res) => {
 })
 
 
-router.get('/more/:id', async (req, res) => {
+// router.get('/more/:id', async (req, res) => {
 
-})
-
-
-
-
-// router.get('/userpage/:id', async (req, res) => {
-//   try {
-//     const userId = req.params.id;
-
-    
-//     // Use the controller function to get user data along with cars
-//     const userData = await userController.getUserAllByID(userId);
-
-//     if (!userData) {
-//       // Handle case where user is not found
-//       res.status(404).json({ message: 'User not found' });
-//       return;
-//     }
-
-//     // Render the user page with user data
-//     res.render('userPage', { user: userData });
-
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// });
-  
+// }) 
 
 
 module.exports = router;
