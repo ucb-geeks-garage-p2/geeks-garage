@@ -20,13 +20,18 @@
     <ul>
       <!-- Use the filterTasks helper to find tasks associated with the current car -->
       {{#each (filterTasks ../usersWithTasks id)}}
+      <div class="">
         <li>
           <strong>Task ID:</strong> {{id}}<br>
           <strong>Task Name:</strong> {{task_name}}<br>
           <strong>Created On:</strong> {{created_on}}<br>
           <strong>Due By:</strong> {{due_by}}<br>
+
+          
         </li>
+        </div>
       {{/each}}
+      
     </ul>
   </li>
 {{/each}}
