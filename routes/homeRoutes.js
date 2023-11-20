@@ -109,6 +109,41 @@ router.post("/", async (req, res) => {
   }
 });
 
+//missing login route?
+router.post('/login', async (req, res) => {
+  try {
+    const user = await userController.checkUserByEmail(req.body.email);
+
+    if (!user) {
+      req.session.lastMessage = "Invalid email or password";
+      res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
+      return;
+    }
+
+    const validPassword = await user.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      req.session.lastMessage = "Invalid email or password";
+      res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.userID = user.id;
+      console.log(
+        'file: user-routes.js ~ req.session.save ~ req.session.cookie',
+        req.session.cookie
+      );
+      req.session.lastMessage = "you're in the mainframe!";
+      res.status(200).json(user);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 router.post("/logout", async (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
