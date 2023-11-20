@@ -33,6 +33,7 @@ router.get('/', async (req, res) => {
     const viewObj = {
       logged_in: req.session.loggedIn,
       user_id: userWithCars.id,
+      username: userWithCars.username,
       carsWithTasks,
 
     }

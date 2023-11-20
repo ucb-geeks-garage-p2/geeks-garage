@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateCarButton = document.getElementById('updateCarButton');
     const updateCarModal = new bootstrap.Modal(document.getElementById('updateCarModal'));
     const updateCarButtonModal = document.getElementById('updateCarButtonModal');
-    const deleteButtons = document.querySelectorAll('deleteTaskButton');
+    const deleteButtons = document.querySelectorAll('.deleteTaskButton');
 
 
     const createTaskButtonModalHandler = async (event) => {
@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle unexpected errors
         }
     };
+
+    
 
     const updateCarButtonModalHandler = async (event) => {
         event.preventDefault();
