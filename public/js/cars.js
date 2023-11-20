@@ -49,7 +49,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    
+    const deleteTaskHandler = async (taskId) => {
+
+        const carId = document.getElementById('carInfoStore').dataset.carid;
+
+        try {
+            const response = await fetch(`/api/tasks/${taskId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                console.log(`Task ${taskId} deleted`);
+                // Reload the page or update the UI as needed
+                document.location.replace(`/api/cars/${carId}`);
+            } else {
+                console.error(`Failed to delete task ${taskId}`, response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting task:', error);
+        }
+    };
 
     const updateCarButtonModalHandler = async (event) => {
         event.preventDefault();
@@ -96,16 +118,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (deleteButtons) {
         deleteButtons.forEach((button) => {
-            button.addEventListener('click', (event) => {
+            button.addEventListener('click', async (event) => {
                 event.preventDefault();
                 event.stopPropagation();
-
-                const taskId = button.dataset.taskId;
+                
+                const taskId = button.dataset.taskid;
+                console.log('attempting to delete', taskId);
                 if (taskId) {
                     // Confirm deletion if needed
                     const confirmDeletion = confirm('Are you sure you want to delete this task?');
                     if (confirmDeletion) {
-                        deleteTaskHandler(taskId);
+                        await deleteTaskHandler(taskId);
                     }
                 }
             });

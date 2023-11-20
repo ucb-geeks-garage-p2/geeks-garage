@@ -28,7 +28,14 @@ router.route('/:id')
     })
     .delete(( async (req, res) => {
         //delete a task
-        
+        try {
+          const deletedTask = await taskController.deleteTask(req.params.id);
+          res.status(200).json(deletedTask);
+        } catch (err) {
+          console.log(err);
+          res.status(500).json(err);
+        }
+
     }));
 
 
