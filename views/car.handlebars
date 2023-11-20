@@ -1,6 +1,6 @@
 <section>
   <h2>{{carWithTasks.make}} {{carWithTasks.model}} - {{carWithTasks.year}}</h2>
-  <button class="btn btn-outline-secondary">
+  <button class="btn btn-outline-secondary" id="createTaskButton">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
       viewBox="0 0 16 16">
       <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -16,3 +16,32 @@
     {{/each}}
   </section>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createTaskModalLabel">New Task</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Task creation form -->
+                <form>
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" class="form-control" required>
+
+                    <label for="dueBy">Due By:</label>
+                    <input type="text" id="dueBy" class="form-control" placeholder="Optional">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="createTaskButtonModal">Create Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include your task.js script here -->
+<script src="/js/tasks.js"></script>
