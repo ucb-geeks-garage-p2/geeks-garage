@@ -1,1 +1,10 @@
 <h1>Welcome To Your Garage!</h1>
+
+<h2>Cars</h2>
+<section class="container">
+    <section class="flex-row justify-center">
+    {{#each userWithCars.cars as |car|}}
+    {{> car-details}}
+    {{/each}}
+  </section>
+</section>

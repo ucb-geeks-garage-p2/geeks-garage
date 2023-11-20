@@ -7,26 +7,21 @@ const { taskController } = require('../controllers/');
 router.get('/', async (req, res) => {
   if (req.session.loggedIn) {
 
-    const usersWithCars = await userController.getUserCarsByID(req.session.userID);
-    console.log(usersWithCars);
+    const userWithCars = await userController.getUserCarsByID(req.session.userID);
+    console.log(userWithCars, "--------user dataset here--------");
     // console.log(result);
     
 
-    // need to create a task route to create a few tasks in order to return object to userpage
-    // with this code below 
-    const getUsersTasks = await taskController.getTasks(req.session.userID);
-    const usersWithTasks = getUsersTasks;
-    console.log(usersWithTasks);
     
     const viewObj = {
       logged_in: req.session.loggedIn,
-      usersWithCars,
-      usersWithTasks
+      userWithCars,
+      
     }
 
     res.render('userpage', viewObj);
 
-    // res.render('userpage', { usersWithCars });
+    // res.render('userpage', { userWithCars });
   } else {
   // console.log('************** not logged in *************');
   
