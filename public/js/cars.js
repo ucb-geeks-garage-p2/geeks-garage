@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.stopPropagation();
                 
                 const taskId = button.dataset.taskid;
-                console.log('attempting to delete', taskId);
+                // console.log('attempting to delete', taskId);
                 if (taskId) {
                     // Confirm deletion if needed
                     const confirmDeletion = confirm('Are you sure you want to delete this task?');

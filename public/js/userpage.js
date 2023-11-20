@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const createCarButton = document.getElementById('createCarButton');
     const createCarModal = new bootstrap.Modal(document.getElementById('createCarModal'));
     const createCarButtonModal = document.getElementById('createCarButtonModal');
-    const deleteButtons = document.querySelectorAll('deleteCarButton');
+    const deleteButtons = document.querySelectorAll('.deleteCarButton');
 
     const createCarButtonModalHandler = async (event) => {
         event.preventDefault();
@@ -46,6 +46,47 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle unexpected errors
         }
     };
+
+    const deleteCarHandler = async (carid) => {
+
+        try {
+            const response = await fetch(`/api/cars/${carid}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                // Reload the page or update the UI as needed
+                document.location.replace(`/`);
+                console.log(`Car ${carid} deleted`);
+            } else {
+                console.error(`Failed to delete car ${carid}`, response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting car:', error);
+        }
+    };
+
+    if (deleteButtons) {
+        deleteButtons.forEach((button) => {
+            button.addEventListener('click', async (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const carid = button.dataset.carid;
+                // console.log('attempting to delete', carid);
+                if (carid) {
+                    // Confirm deletion if needed
+                    const confirmDeletion = confirm('Are you sure you want to delete this car?');
+                    if (confirmDeletion) {
+                        await deleteCarHandler(carid);
+                    }
+                }
+            });
+        });
+    }
 
     if (createCarButton) {
         createCarButton.addEventListener('click', () => {

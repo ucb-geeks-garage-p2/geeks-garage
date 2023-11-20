@@ -57,7 +57,13 @@ router.route('/:id')
         }
     })
     .delete(async (req, res) => {
-
+        try {
+            const deletedCar = await carController.deleteCar(req.params.id);
+            res.status(200).json(deletedCar);
+          } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+          }
     });
 
 

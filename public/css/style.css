@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
 :root {
   /* We can change the names of the element as needed, just want to put placeholders in to start calling if needed */
   --primary-color60: #dde6ed;
@@ -6,7 +7,6 @@
   --active-color3: #ff8c00;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
 
 * {
     margin:0;

@@ -21,6 +21,15 @@
                             {{#each tasks as |task|}}
                             {{> car-tasks-details}}
                             {{/each}}
+                            {{!-- {{#if tasks}}
+                            <li class="widget-49-meeting-item"><span>{{tasks[0].task_name}}</span></li>
+                            {{/if}}
+                            {{#if tasks[1]}}
+                            <li class="widget-49-meeting-item"><span>{{tasks[1].task_name}}</span></li>
+                            {{/if}}
+                            {{#if tasks[2]}}
+                            <li class="widget-49-meeting-item"><span>{{tasks[2].task_name}}</span></li>
+                            {{/if}} --}}
                             {{!-- <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
                             <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li> --}}
                         </ol>
@@ -29,7 +38,7 @@
                             display: flex;
                             justify-content: space-between;
                         ">
-                            <button class="btn btn-danger">
+                            <button class="deleteCarButton btn btn-danger" data-carid="{{id}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash" viewBox="0 0 16 16">
                                     <path
