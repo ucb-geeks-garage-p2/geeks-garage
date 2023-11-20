@@ -3,7 +3,7 @@ const { User, Car, Task, Note } = require("../models");
 async function checkCar(id) {
   try {
     const car = await Car.findByPk(id);
-    if (!product) {
+    if (!car) {
       throw new Error("car does not exist");
     }
     return car;
@@ -108,7 +108,6 @@ async function updateCar(id, body) {
       model: body.model,
       year: body.year,
       mileage: body.mileage,
-      user_id: body.user_id,
     });
     return car.get({ plain: true });
   } catch (error) {

@@ -35,7 +35,7 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [8, 32],
+                len: [8, 64],
             },
         },
     },
@@ -45,6 +45,14 @@ User.init(
               newUserData.password = await bcrypt.hash(newUserData.password, 10);
               return newUserData;
             },
+            beforeUpdate: async (newUserData) => {                
+                if(newUserData._changed.has('password')) {
+                    console.log(newUserData, "changin password heree909868699088");
+                    
+                    newUserData.password = await bcrypt.hash(newUserData.password, 10);
+                }
+                return newUserData;
+              },
           },
         sequelize,
         timestamps: false,

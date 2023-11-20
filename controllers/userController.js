@@ -168,7 +168,7 @@ async function updateUserPassword(id, body) {
     return user.get({ plain: true });
   } catch (error) {
     console.log(error);
-    throw new Error("user had an error updating password");
+    console.log("user had an error updating password");
   }
 }
 

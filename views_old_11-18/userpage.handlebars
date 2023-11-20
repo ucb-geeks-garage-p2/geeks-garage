@@ -1,0 +1,78 @@
+
+<div class="">
+    <h1>User Profile</h1>
+  <div>
+    <strong>User ID:</strong> {{usersWithCars.id}}<br>
+    <strong>Username:</strong> {{usersWithCars.username}}<br>
+    <strong>Email:</strong> {{usersWithCars.email}}<br>
+  </div>
+
+  <h2>Cars</h2>
+  <ul>
+    {{#each usersWithCars.cars}}
+      <li data-car-id="{{id}}">
+        <strong class="car-id">Car ID:</strong> {{id}}<br>
+        <strong>Make:</strong> {{make}}<br>
+        <strong>Model:</strong> {{model}}<br>
+        <strong>Year:</strong> {{year}}<br>
+        <strong>Mileage:</strong> {{mileage}}<br>
+        
+        <h3>Tasks</h3>
+        <ul>
+          {{#each tasks}}
+            <li>
+              <strong>Task ID:</strong> {{id}}<br>
+              <strong>Task Name:</strong> {{task_name}}<br>
+              <strong>Created On:</strong> {{created_on}}<br>
+              <strong>Due By:</strong> {{due_by}}<br>
+            </li>
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+   <button type="button" id="createTaskButton">Create Task</button>
+  </form>
+
+ <!-- Modal -->
+  <div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <!-- Task creation form -->
+          <form id="createTaskForm">
+            <label for="taskName">Task Name:</label>
+            <input type="text" id="taskName" class="form-control" required>
+
+            <label for="dueBy">Due By:</label>
+            <input type="text" id="dueBy" class="form-control" placeholder="Optional">
+
+            <label for="carId">Car ID:</label>
+            <input type="text" id="carId" class="form-control"  value="{{usersWithCars.cars.[0].id}}" placeholder="Optional"required>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="createTaskForm">Create Task</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include your task.js script here -->
+  <script src="/js/tasks.js"></script>
+
+  <!-- Add Bootstrap JS and Popper.js scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

@@ -1,85 +1,56 @@
-<div class="">
-    <div>
-        <h1>User Profile</h1>
-    </div>
-    <div>
-        <strong>User ID:</strong> {{usersWithCars.id}}<br>
-        <strong>Username:</strong> {{usersWithCars.username}}<br>
-        <strong>Email:</strong> {{usersWithCars.email}}<br>
-    </div>
-    <div class="">
-        <h2>Cars</h2>
-        <ul>
-            {{#each usersWithCars.cars}}
-            <li data-car-id="{{id}}">
-                <strong class="car-id">Car ID:</strong> {{id}}<br>
-                <strong>Make:</strong> {{make}}<br>
-                <strong>Model:</strong> {{model}}<br>
-                <strong>Year:</strong> {{year}}<br>
-                <strong>Mileage:</strong> {{mileage}}<br>
-                <div>
-                    <h3>Tasks</h3>
-                    <ul>
-                        <!-- Use the filterTasks helper to find tasks associated with the current car -->
-                        {{#each (filterTasks ../usersWithTasks id)}}
-                        <li>
-                            <strong>Task ID:</strong> {{id}}<br>
-                            <strong>Task Name:</strong> {{task_name}}<br>
-                            <strong>Created On:</strong> {{created_on}}<br>
-                            <strong>Due By:</strong> {{due_by}}<br>
-                            <!-- Add complete task -->
-                            <!-- <button class="completeTaskButton" data-task-id="{{id}}">Complete Task</button> -->
+<h1>Welcome To Your Garage, {{username}}!</h1>
 
-                            <!-- add delete task -->
-                            <button class="deleteTaskButton" data-task-id="{{id}}">Delete Task</button>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </li>
-            {{/each}}
-        </ul>
+<section class="d-flex my-3" style="justify-content: space-around;">
+  <h2 class="d-inline" id="carInfoStore" data-userid="{{user_id}}">Cars</h2>
+  <div>
+    <button class="btn btn-outline-secondary" id="createCarButton">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus"
+        viewBox="0 0 16 16">
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+      </svg>
+      Add Car
+    </button>
+  </div>
+</section>
+<section class="container">
+  <section class="flex-row justify-center">
+    {{#each carsWithTasks as |car|}}
+    {{> car-details}}
+    {{/each}}
+  </section>
+</section>
+
+<!-- Create Car Modal -->
+<div class="modal fade" id="createCarModal" tabindex="-1" role="dialog" aria-labelledby="createCarModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="CreateCarModalLabel">Add New Car</h5>
+      </div>
+      <div class="modal-body">
+        <!-- Car creation form -->
+        <form>
+          <label for="carMake">Make: </label>
+          <input type="text" id="carMake" class="form-control">
+
+          <label for="carModel">Model: </label>
+          <input type="text" id="carModel" class="form-control">
+
+          <label for="carYear">Year: </label>
+          <input type="text" id="carYear" class="form-control">
+
+          <label for="carMileage">Mileage: </label>
+          <input type="text" id="carMileage" class="form-control">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="createCarButtonModal">Add Car</button>
+      </div>
     </div>
-</div>
-<button type="button" id="createTaskButton">Create Task</button>
-
-<!-- Modal -->
-<div class="modal fade" id="createTaskModal" tabindex="-1" role="dialog" aria-labelledby="createTaskModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Task creation form -->
-                <form>
-                    <label for="taskName">Task Name:</label>
-                    <input type="text" id="taskName" class="form-control" required>
-
-                    <label for="dueBy">Due By:</label>
-                    <input type="text" id="dueBy" class="form-control" placeholder="Optional">
-
-                    <label for="carId">Car ID:</label>
-                    <input type="text" id="carId" class="form-control" value="{{usersWithCars.cars.[0].id}}"
-                        placeholder="Optional" required>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="createTaskButtonModal">Create Task</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
-<!-- Include your task.js script here -->
-<script src="/js/tasks.js"></script>
-
-<!-- Add Bootstrap JS and Popper.js scripts -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/userpage.js"></script>

@@ -13,9 +13,11 @@ Car.init(
         },
         make: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         model: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         year: {
             type: DataTypes.INTEGER,

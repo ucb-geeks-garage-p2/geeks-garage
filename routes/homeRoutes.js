@@ -3,128 +3,72 @@ const { userController } = require("../controllers");
 const { carController } = require("../controllers/");
 const { taskController } = require("../controllers/");
 
-
-
-// router.get("/", async (req, res) => {
-//   if (req.session.loggedIn) {
-//     const getUsersCars = await userController.getUserCarsByID(
-//       req.session.userID
-//     );
-//     const usersWithCars = getUsersCars;
-//     console.log(usersWithCars);
-//     // console.log(result);
-
-//     // need to create a task route to create a few tasks in order to return object to userpage
-//     // with this code below
-//     // const getUsersTasks = await taskController.getTasks(req.session.userID);
-//     // const usersWithTasks = getUsersTasks;
-//     // console.log(usersWithTasks);
-
-//     // res.render("userpage", { usersWithCars, usersWithTasks });
-
-//     res.render('userpage', { usersWithCars });
-//   } else {
-//     // console.log('************** not logged in *************');
-
-//     const loginObj = {
-//       message: req.session.lastMessage,
-//       isLogin: true,
-//       failedLogin: req.session.failedLogin,
-//       failedSignUp: req.session.failedSignUp,
-//     };
-
-//     res.render("login-test", loginObj);
-//   }
-// });
-
-router.post("/", async (req, res) => {
-
-  try {
-    const { task_name, created_on, due_by, car_id } = req.body;
-
-    const newTask = await taskController.createTask({
-      task_name,
-      created_on,
-      due_by,
-      car_id,
-    });
-    res.status(200).json(newTask);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-
-
 router.get('/', async (req, res) => {
-  try {
-    if (req.session.loggedIn) {
-      // Retrieve user cars
-      const getUsersCars = await userController.getUserCarsByID(req.session.userID);
-      const usersWithCars = getUsersCars;
-      console.log(usersWithCars);
-      // Retrieve user tasks
-      const getUsersTasks = await taskController.getTasks(req.session.userID);
-      const usersWithTasks = getUsersTasks;
-      console.log(usersWithTasks);
-      // Render the userpage with user cars and tasks
-      res.render('userpage', { usersWithCars, usersWithTasks });
-    } else {
-      const loginObj = {
-        message: req.session.lastMessage,
-        isLogin: true,
-        failedLogin: req.session.failedLogin,
-        failedSignUp: req.session.failedSignUp,
-      };
+  if (req.session.loggedIn) {
 
-      res.render('login-test', loginObj);
+    const userWithCars = await userController.getUserCarsByID(req.session.userID);
+    console.log(userWithCars, "--------user dataset here--------");
+    // console.log(result);
+
+    const getCarTasks = async (car) => {
+      const tasks = await carController.getCarTasksByID(car.id);
+      return tasks;
     }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+
+    const getCarsWithTasks = async () => {
+      const promises = userWithCars.cars.map(async (car) => {
+        return await getCarTasks(car);
+      })
+      
+      const results = await Promise.all(promises);
+      return results;
+    }
+
+    const carsWithTasks = await getCarsWithTasks();
+
+    console.log(carsWithTasks);
+
+
+    const viewObj = {
+      logged_in: req.session.loggedIn,
+      user_id: userWithCars.id,
+      username: userWithCars.username,
+      carsWithTasks,
+
+    }
+
+    res.render('userpage', viewObj);
+
+    // res.render('userpage', { userWithCars });
+  } else {
+    // console.log('************** not logged in *************');
+
+    const loginObj = {
+      message: req.session.lastMessage,
+      isLogin: true,
+      failedLogin: req.session.failedLogin,
+      failedSignUp: req.session.failedSignUp
+    }
+
+    res.render('login', loginObj);
   }
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const { task_name, created_on, due_by, car_id } = req.body;
-    console.log('Request body: ', req.body);
-    const newTask = await taskController.createTask({
-      task_name,
-      created_on,
-      due_by,
-      car_id,
-    });
-
-    req.session.lastView = "home";
-    req.session.lastMessage = "your in the mainframe!";
-
-    // console.log("---user logged in---");
-    res.status(200).json(newTask);
-  } catch (err) {
-    console.log(err);
-    req.session.failedSignUp = false;
-    req.session.failedLogin = true;
-    res.status(500).json(err);
-  }
-});
-
-//missing login route?
 router.post('/login', async (req, res) => {
   try {
     const user = await userController.checkUserByEmail(req.body.email);
 
     if (!user) {
-      req.session.lastMessage = "Invalid email or password";
-      res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
+      req.session.lastMessage = "Incorrect email or password, please try again";
+      res.render('login', { failedLogin: true, message: req.session.lastMessage });
       return;
     }
 
-    const validPassword = await user.checkPassword(req.body.password);
+    const validPassword = user.checkPassword(req.body.password);
 
     if (!validPassword) {
-      req.session.lastMessage = "Invalid email or password";
-      res.render('login-test', { failedLogin: true, message: req.session.lastMessage });
+      req.session.lastMessage = "Incorrect email or password, please try again";
+      res.render('login', { failedLogin: true, message: req.session.lastMessage });
       return;
     }
 
@@ -132,68 +76,52 @@ router.post('/login', async (req, res) => {
       req.session.loggedIn = true;
       req.session.userID = user.id;
       console.log(
-        'file: user-routes.js ~ req.session.save ~ req.session.cookie',
+        'File: user-routes.js ~ req.session.save ~ req.session.cookie',
         req.session.cookie
       );
-      req.session.lastMessage = "you're in the mainframe!";
+
+      req.session.lastView = 'home';
+
+      req.session.lastMessage = "your in the mainframe!";
+
+      // console.log("---user logged in---");
       res.status(200).json(user);
     });
   } catch (err) {
     console.log(err);
+
+    req.session.failedSignUp = false;
+    req.session.failedLogin = true;
     res.status(500).json(err);
   }
 });
 
-router.post("/logout", async (req, res) => {
+router.get('/logout', async (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       // console.log("---user logged out---");
-      res.render("login-test");
+      res.redirect('/');
     });
   } else {
-    res.render("login-test");
+    res.redirect('/');
   }
 });
 
-router.get("/more/:id", async (req, res) => {});
-
-// router.get('/userpage/:id', async (req, res) => {
-//   try {
-//     const userId = req.params.id;
-
-//     // Use the controller function to get user data along with cars
-//     const userData = await userController.getUserAllByID(userId);
-
-//     if (!userData) {
-//       // Handle case where user is not found
-//       res.status(404).json({ message: 'User not found' });
-//       return;
-//     }
-
-//     // Render the user page with user data
-//     res.render('userPage', { user: userData });
-
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// });
-
-router.delete('/:taskId', async (req, res) => {
-  try {
-      const taskId = req.params.taskId;
-      const deletedTask = await taskController.deleteTask(taskId);
-
-      if (deletedTask) {
-          res.status(200).json({ message: `Task ${taskId} deleted successfully` });
-      } else {
-          res.status(404).json({ error: `Task ${taskId} not found` });
-      }
-  } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+router.get('/signup', async (req, res) => {
+  const loginObj = {
+    message: req.session.lastMessage,
+    isLogin: false,
+    failedLogin: req.session.failedLogin,
+    failedSignUp: req.session.failedSignUp
   }
-});
+
+  res.render('login', loginObj);
+})
+
+
+// router.get('/more/:id', async (req, res) => {
+
+// }) 
 
 
 module.exports = router;
