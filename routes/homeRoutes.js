@@ -144,4 +144,21 @@ router.get("/more/:id", async (req, res) => {});
 //   }
 // });
 
+router.delete('/:taskId', async (req, res) => {
+  try {
+      const taskId = req.params.taskId;
+      const deletedTask = await taskController.deleteTask(taskId);
+
+      if (deletedTask) {
+          res.status(200).json({ message: `Task ${taskId} deleted successfully` });
+      } else {
+          res.status(404).json({ error: `Task ${taskId} not found` });
+      }
+  } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+  }
+});
+
+
 module.exports = router;
