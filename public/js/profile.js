@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteUserHandler = async (userid) => {
 
         try {
-            const response = await fetch(`/api/users/${userid}`, {
+            const response = await fetch(`/api/users`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

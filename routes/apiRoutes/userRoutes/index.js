@@ -50,6 +50,21 @@ router.route('/')
             res.status(500).json(err);
         }
     })
+    .delete(async (req, res) => {
+
+        if (req.session.loggedIn) {
+            try {
+                const deletedUser = await userController.deleteUser(req.session.userID);
+                req.session.destroy(() => {
+                    // console.log("---user logged out---");
+                    res.status(200).json(deletedUser);
+                  });
+              } catch (err) {
+                console.log(err);
+                res.status(500).json(err);
+              }
+        }
+    });
 
 router.route('/update-password')
     // .get()
