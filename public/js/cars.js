@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Handle failure, e.g., show an error message to the user
             }
         } catch (error) {
-            console.error('Error updating task:', error);
+            console.error('Error updating car:', error);
             // Handle unexpected errors
         }
     };
