@@ -8,3 +8,5 @@ https://htmljstemplates.com/html/bootstrap-5-navbars
 
 https://www.bootdey.com/snippets/view/events-card-widget
 
+https://icons.getbootstrap.com/icons/trash/
+
