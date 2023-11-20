@@ -194,18 +194,16 @@ async function deleteUser(id) {
 
 module.exports = {
   checkUser,
-  checkUserByEmail,
+  checkUserByEmail, // Add this line to export the checkUserByEmail function
   getUsers,
   getUsersCars,
   getUsersTasks,
   getUsersAll,
   getUserByID,
   getUserCarsByID,
-  // getUserTasksByID,
   getUserAllByID,
   createUser,
   updateUser,
   updateUserPassword,
   deleteUser,
-  // deleteBulkUser
 };

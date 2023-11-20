@@ -1,0 +1,24 @@
+<div class="">
+    <div>
+        <h1>User Profile</h1>
+    </div>
+    <div>
+        <strong>User ID:</strong> {{usersWithCars.id}}<br>
+        <strong>Username:</strong> {{usersWithCars.username}}<br>
+        <strong>Email:</strong> {{usersWithCars.email}}<br>
+    </div>
+    <div class="">
+        <h2>Cars</h2>
+        <ul>
+            {{#each usersWithCars.cars}}
+            <li data-car-id="{{id}}">
+                <strong class="car-id">Car ID:</strong> {{id}}<br>
+                <strong>Make:</strong> {{make}}<br>
+                <strong>Model:</strong> {{model}}<br>
+                <strong>Year:</strong> {{year}}<br>
+                <strong>Mileage:</strong> {{mileage}}<br>
+               </li>
+            {{/each}}
+        </ul>
+    </div>
+    </div>
