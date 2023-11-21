@@ -30,6 +30,15 @@ router.get('/', async (req, res) => {
     });
 
     console.log(carsWithTasks);
+    
+    const shortTasks = carsWithTasks.map((car) => {
+      // console.log(car);
+      
+      car.tasksNew = car.tasks.slice(0,3)
+      return car;
+    })
+
+    console.log(shortTasks);
 
 
 
@@ -38,7 +47,7 @@ router.get('/', async (req, res) => {
       logged_in: req.session.loggedIn,
       user_id: userWithCars.id,
       username: userWithCars.username,
-      carsWithTasks,
+      carsWithTasks: shortTasks,
 
     }
 
