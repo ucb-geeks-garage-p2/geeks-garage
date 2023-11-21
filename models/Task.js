@@ -16,11 +16,11 @@ Task.init(
       type: DataTypes.STRING,
     },
     created_on: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     due_by: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     car_id: {
