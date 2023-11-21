@@ -11,14 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const createTaskButtonModalHandler = async (event) => {
         event.preventDefault();
         event.stopPropagation(); // Prevent the event from reaching parent elements
-
+    
         console.log('createTaskForm hit');
-
+    
         const taskName = document.getElementById('taskName').value.trim();
-        const createdOn = Date.now();
-        const dueBy = document.getElementById('dueBy').value.trim() || null;
+        const createdOn = Math.floor(Date.now() / 1000); // Convert to seconds
+        const dueByInput = document.getElementById('dueBy').value.trim() || null;
         const carId = document.getElementById('carInfoStore').dataset.carid;
-
+    
+        // Convert dueByInput to UTC epoch timestamp
+        let dueBy;
+        if (dueByInput) {
+            const [month, day, year] = dueByInput.split('-');
+            const utcDueDate = new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
+            // Adjust for local timezone offset
+            const utcDueDateWithOffset = new Date(utcDueDate.getTime() + utcDueDate.getTimezoneOffset() * 60000);
+            dueBy = Math.floor(utcDueDateWithOffset.getTime() / 1000).toString(); // Convert to seconds and floor the value
+        } else {
+            dueBy = null;
+        }
+    
         try {
             const response = await fetch('/api/tasks', {
                 method: 'POST',
@@ -32,9 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                 },
             });
-
+    
             createTaskModal.hide();
-
+    
             if (response.ok) {
                 console.log('New task created');
                 // Handle success, e.g., show a success message or redirect to another page
@@ -73,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    
     const updateCarButtonModalHandler = async (event) => {
         event.preventDefault();
         event.stopPropagation(); // Prevent the event from reaching parent elements

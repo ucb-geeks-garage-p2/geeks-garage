@@ -5,45 +5,59 @@ document.addEventListener('DOMContentLoaded', () => {
   const createTaskButtonModal = document.getElementById('createTaskButtonModal');
   const createTaskForm = document.querySelector('#createTaskModal form');
 
-  const createTaskButtonModalHandler = async (event) => {
-      event.preventDefault();
-      event.stopPropagation(); // Prevent the event from reaching parent elements
-
-      console.log('createTaskForm hit');
-
-      const taskName = document.getElementById('taskName').value.trim();
-      const createdOn = Date.now();
-      const dueBy = document.getElementById('dueBy').value.trim();
-      const carId = document.getElementById('carId').value.trim();
-
+  const convertDateToEpochString = (dateString) => {
+    return new Promise((resolve, reject) => {
       try {
-          const response = await fetch('/', {
-              method: 'POST',
-              body: JSON.stringify({
-                  task_name: taskName,
-                  created_on: createdOn,
-                  due_by: dueBy,
-                  car_id: carId,
-              }),
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-          });
-
-          createTaskModal.hide();
-
-          if (response.ok) {
-              console.log('New task created');
-              // Handle success, e.g., show a success message or redirect to another page
-              document.location.replace('/');
-          } else {
-              console.error('Failed to create task:', response.status, response.statusText);
-              // Handle failure, e.g., show an error message to the user
-          }
+        const [month, day, year] = dateString.split('-');
+        const dueByNum = Date.parse(`${year}-${month}-${day}`);
+        const dueByEpoch = dueByNum.toString();
+        resolve(dueByEpoch);
       } catch (error) {
-          console.error('Error creating task:', error);
-          // Handle unexpected errors
+        reject(error);
       }
+    });
+  };
+
+  const createTaskButtonModalHandler = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const taskName = document.getElementById('taskName').value.trim();
+    const createdOn = Date.now();
+    const carId = document.getElementById('carId').value.trim();
+    const dueByInput = document.getElementById('dueByInput').value.trim();
+
+    //for created on 
+
+
+    convertDateToEpochString(dueByInput)
+      .then((dueByEpoch) => {
+        return fetch('/', {
+          method: 'POST',
+          body: JSON.stringify({
+            task_name: taskName,
+            created_on: createdOn,
+            due_by: dueByEpoch,
+            car_id: carId,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      })
+      .then((response) => {
+        createTaskModal.hide();
+
+        if (response.ok) {
+          console.log('New task created');
+          document.location.replace('/');
+        } else {
+          console.error('Failed to create task:', response.status, response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error('Error creating task:', error);
+      });
   };
 
   const deleteTaskHandler = async (taskId) => {
@@ -80,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   // Confirm deletion if needed
                   const confirmDeletion = confirm('Are you sure you want to delete this task?');
                   if (confirmDeletion) {
-                      deleteTaskHandler(taskId);
+                    deleteTaskHandler(taskId);
                   }
               }
           });
@@ -120,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (event) => {
       if (event.target.classList.contains('deleteTaskButton')) {
           const taskId = event.target.dataset.taskId;
-          deleteTaskHandler(taskId);
+          deleteTask(taskId);
       }
   });
 

@@ -1,4 +1,5 @@
 const handlebars = require('handlebars');
+const { format } = require('date-fns');
 
 // Register the 'ifEquals' helper
 handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
@@ -17,6 +18,11 @@ handlebars.registerHelper('eq', function (a, b, opts) {
 handlebars.registerHelper('filterTasks', function(usersWithTasks, carId) {
     return (usersWithTasks || []).filter(task => task.car_id === carId);
 })
+
+handlebars.registerHelper('returnFormatDate', function(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return format(date, 'MM-dd-yyyy');
+});
 
 // Export the handlebars instance
 module.exports = handlebars;
