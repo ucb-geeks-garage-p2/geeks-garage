@@ -544,10 +544,36 @@ text-align: right;
 text-transform: uppercase;
 }
 
+#neubar {
+  background: #9db2bf;
+}
 
+.neubar-button {
+  border: 1px solid black;
+  border-radius: 7px;
+  box-shadow: 2px 2px 4px 2px rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  text-shadow: 
+    -1px -1px 0 #000, /* Top-left */
+    1px -1px 0 #000, /* Top-right */
+    -1px 1px 0 #000, /* Bottom-left */
+    1px 1px 0 #000; /* Bottom-right */
+}
 
+.neubar-button:hover {
+  box-shadow: 2px 2px 4px 2px rgb(0, 0, 0);
+}
 
+.geeksGarage {
+  color: rgb(255, 255, 255);
+  text-shadow: 
+    -1px -1px 0 #000, /* Top-left */
+    1px -1px 0 #000, /* Top-right */
+    -1px 1px 0 #000, /* Bottom-left */
+    1px 1px 0 #000; /* Bottom-right */
+}
 
-
-
-
+.btn:hover {
+  border: 2px solid black;
+}
