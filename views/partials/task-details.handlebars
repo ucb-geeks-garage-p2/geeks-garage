@@ -1,6 +1,6 @@
-<div class="container">
-<div class="row">
-    <div class="col-lg-4">
+{{!-- <div class="container">
+<div class="row"> --}}
+    <div class="col-md-6 col-lg-4">
         <div class="card card-margin">
             <div class="card-header no-border">
                 <h5 class="card-title">{{task_name}}</h5>
@@ -22,11 +22,11 @@
                         <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
                         <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
                     </ol> --}}
-                    <div class="widget-49-meeting-action" style="
+                    <div class="widget-49-meeting-action mt-2" style="
                             display: flex;
                             justify-content: space-between;
                         ">
-                            <button class="deleteTaskButton btn btn-danger" data-taskid="{{id}}">
+                            <button class="deleteTaskButton btn btn-danger delete-btn" data-taskid="{{id}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash" viewBox="0 0 16 16">
                                     <path
@@ -41,5 +41,5 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+{{!-- </div>
+</div> --}}

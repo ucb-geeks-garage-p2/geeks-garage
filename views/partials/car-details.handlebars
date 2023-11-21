@@ -1,9 +1,9 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-4">
+{{!-- <div class="container">
+    <div class="row"> --}}
+        <div class="col-md-6 col-lg-4">
             <div class="card card-margin">
                 <div class="card-header no-border">
-                    <h5 class="card-title">{{make}} {{model}} - {{year}}</h5>
+                    <h5 class="card-title car-title py-1 px-2">{{make}} {{model}} - {{year}}</h5>
                 </div>
                 <div class="card-body pt-0">
                     <div class="widget-49">
@@ -13,7 +13,7 @@
                                 {{!-- <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span> --}}
                             </div>
                             <div class="widget-49-date-primary">
-                                <span class="widget-49-date-day">9</span>
+                                <span class="widget-49-date-day">{{task_length}}</span>
                                 {{!-- <span class="widget-49-date-month">apr</span> --}}
                             </div>
                         </div>
@@ -34,11 +34,11 @@
                             <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li> --}}
                         </ol>
 
-                        <div class="widget-49-meeting-action" style="
+                        <div class="widget-49-meeting-action mt-1" style="
                             display: flex;
                             justify-content: space-between;
                         ">
-                            <button class="deleteCarButton btn btn-danger" data-carid="{{id}}">
+                            <button class="deleteCarButton btn btn-danger delete-btn" data-carid="{{id}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-trash" viewBox="0 0 16 16">
                                     <path
@@ -53,5 +53,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    {{!-- </div>
+</div> --}}

@@ -24,9 +24,14 @@ router.get('/', async (req, res) => {
       return results;
     }
 
-    const carsWithTasks = await getCarsWithTasks();
+    const carsWithTasks = (await getCarsWithTasks()).map((car) => {
+      car.task_length = car.tasks.length;
+      return car;
+    });
 
     console.log(carsWithTasks);
+
+
 
 
     const viewObj = {

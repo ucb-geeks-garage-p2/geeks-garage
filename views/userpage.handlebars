@@ -1,4 +1,4 @@
-<h1>Welcome To Your Garage, {{username}}!</h1>
+<h1 class="text-center">Welcome To Your Garage, {{username}}!</h1>
 
 <section class="d-flex my-3" style="justify-content: space-around;">
   <h2 class="d-inline" id="carInfoStore" data-userid="{{user_id}}">Cars</h2>
@@ -14,7 +14,7 @@
   </div>
 </section>
 <section class="container">
-  <section class="flex-row justify-center">
+  <section class="row justify-center">
     {{#each carsWithTasks as |car|}}
     {{> car-details}}
     {{/each}}

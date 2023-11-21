@@ -18,7 +18,7 @@ a,a:hover{
 .myform-area{
   overflow: hidden;
   padding: 60px 0;
-  background: #34b0a6;
+  /* background: #34b0a6; */
   position: relative;
   padding-top: 100px;
   padding-bottom: 100px;
@@ -105,7 +105,7 @@ a,a:hover{
   background-color: white;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 40px 0 #e1e1e1;
+  box-shadow: 0 0 10px 0 #e1e1e1;
 }
 .myform-area .form-area .form-input{
     width: 50%;
@@ -224,7 +224,7 @@ form > p {
 #neubar a {
 
   padding-left:12px;
-  padding-right:12px;
+  /* padding-right:12px; */
 }
 #neubar .dropdown-menu {
   background : #545454
@@ -574,6 +574,31 @@ text-transform: uppercase;
     1px 1px 0 #000; /* Bottom-right */
 }
 
-.btn:hover {
+.delete-btn:hover {
   border: 2px solid black;
+}
+
+.car-title {
+  background: #9db2bf;
+  border: 1px solid black;
+  border-radius: 7px;
+  box-shadow: 2px 2px 4px 2px rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  text-shadow: 
+    -1px -1px 0 #000, /* Top-left */
+    1px -1px 0 #000, /* Top-right */
+    -1px 1px 0 #000, /* Bottom-left */
+    1px 1px 0 #000; /* Bottom-right */
+}
+
+.car-view-title {
+  color: #9db2bf;
+  font-size: 30px;
+  font-weight: 700;
+  text-shadow: 
+    -1px -1px 0 #000, /* Top-left */
+    1px -1px 0 #000, /* Top-right */
+    -1px 1px 0 #000, /* Bottom-left */
+    1px 1px 0 #000; /* Bottom-right */
 }
