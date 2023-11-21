@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
       const promises = userWithCars.cars.map(async (car) => {
         return await getCarTasks(car);
       })
-      
+
       const results = await Promise.all(promises);
       return results;
     }
@@ -30,11 +30,11 @@ router.get('/', async (req, res) => {
     });
 
     console.log(carsWithTasks);
-    
+
     const shortTasks = carsWithTasks.map((car) => {
       // console.log(car);
-      
-      car.tasksNew = car.tasks.slice(0,3)
+
+      car.tasksNew = car.tasks.slice(0, 3)
       return car;
     })
 
@@ -73,17 +73,23 @@ router.post('/login', async (req, res) => {
     const user = await userController.checkUserByEmail(req.body.email);
 
     if (!user) {
-      req.session.lastMessage = "Incorrect email or password, please try again";
-      res.render('login', { failedLogin: true, message: req.session.lastMessage });
-      return;
+      req.session.save(() => {
+        req.session.lastMessage = "Incorrect email or password, please try again";
+        req.session.failedLogin = true;
+        res.status(500).send("Incorrect email or password, please try again");
+        return;
+      })
     }
 
     const validPassword = user.checkPassword(req.body.password);
 
     if (!validPassword) {
-      req.session.lastMessage = "Incorrect email or password, please try again";
-      res.render('login', { failedLogin: true, message: req.session.lastMessage });
-      return;
+      req.session.save(() => {
+        req.session.lastMessage = "Incorrect email or password, please try again";
+        req.session.failedLogin = true;
+        res.status(500).send("Incorrect email or password, please try again");
+        return;
+      })
     }
 
     req.session.save(() => {

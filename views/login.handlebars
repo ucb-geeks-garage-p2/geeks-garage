@@ -7,8 +7,11 @@
         <div class="form-area login-form">
           <div class="form-content">
             <h2>Login</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non aperiam cum quas quod reprehenderit.
+            <p>Login to stay on track with all car maintenance.
             </p>
+            {{#if failedLogin}}
+            <p class="login-message">Incorrect email or password, please try again.</p>
+            {{/if}}
 
           </div>
           <div class="form-input">
@@ -27,9 +30,7 @@
                 <h6></h6>
                 <a href="/signup"><button class="myform-btn" type="button">Sign Up</button></a>
               </div>
-              {{#if failedLogin}}
-              <p>{{message}}</p>
-              {{/if}}
+
             </form>
           </div>
         </div>
@@ -47,8 +48,11 @@
         <div class="form-area login-form">
           <div class="form-content">
             <h2>Sign Up</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non aperiam cum quas quod reprehenderit.
+            <p>Sign up to start tracking all car maintenance.
             </p>
+            {{#if failedSignUp}}
+            <p>There was an error creating your profile.</p>
+            {{/if}}
 
           </div>
           <div class="form-input">
@@ -71,9 +75,7 @@
                 <h6></h6>
                 <a href="/"><button class="myform-btn" type="button">Login</button></a>
               </div>
-              {{#if failedSignUp}}
-              <p>{{message}}</p>
-              {{/if}}
+
             </form>
           </div>
         </div>

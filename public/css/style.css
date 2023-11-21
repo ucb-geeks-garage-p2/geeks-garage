@@ -602,3 +602,17 @@ text-transform: uppercase;
     -1px 1px 0 #000, /* Bottom-left */
     1px 1px 0 #000; /* Bottom-right */
 }
+
+.login-message {
+  background: #9db2bf;
+  color: red !important;
+  border-radius: 7px;
+  border: 1px solid white;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 
+    -1px -1px 0 #000, /* Top-left */
+    1px -1px 0 #000, /* Top-right */
+    -1px 1px 0 #000, /* Bottom-left */
+    1px 1px 0 #000; /* Bottom-right */
+}

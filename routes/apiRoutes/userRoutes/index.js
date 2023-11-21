@@ -28,10 +28,12 @@ router.route('/')
             });
         } catch (err) {
             console.log(err);
-            req.session.lastView = 'login';
-            req.session.failedSignUp = true;
-            req.session.failedLogin = false;
-            res.status(500).json(err);
+            req.session.save(() => {
+                req.session.lastView = 'login';
+                req.session.failedSignUp = true;
+                req.session.failedLogin = false;
+                res.status(500).json(err);
+            })
         }
     })
     .put(async (req, res) => {
@@ -58,11 +60,11 @@ router.route('/')
                 req.session.destroy(() => {
                     // console.log("---user logged out---");
                     res.status(200).json(deletedUser);
-                  });
-              } catch (err) {
+                });
+            } catch (err) {
                 console.log(err);
                 res.status(500).json(err);
-              }
+            }
         }
     });
 
