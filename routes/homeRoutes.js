@@ -70,6 +70,7 @@ router.get('/', async (req, res) => {
       // Render the userpage with user cars and tasks
       res.render('userpage', { usersWithCars, usersWithTasks });
     } else {
+
       const loginObj = {
         message: req.session.lastMessage,
         isLogin: true,
@@ -137,6 +138,7 @@ router.post('/login', async (req, res) => {
       );
       req.session.lastMessage = "you're in the mainframe!";
       res.status(200).json(user);
+      console.log(req.session.lastMessage);
     });
   } catch (err) {
     console.log(err);

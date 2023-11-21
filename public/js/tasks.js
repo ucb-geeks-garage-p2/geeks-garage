@@ -145,35 +145,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    const completeTaskHandler = async (taskId) => {
-        try {
-            const response = await fetch(`/api/tasks/${taskId}/complete`, {
-                method: 'PUT',  // Assuming you use a PUT request to mark a task as complete
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+//we do not have a complete task so this doesnt matter
+    // const completeTaskHandler = async (taskId) => {
+    //     try {
+    //         const response = await fetch(`/api/tasks/${taskId}/complete`, {
+    //             method: 'PUT',  // Assuming you use a PUT request to mark a task as complete
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
     
-            if (response.ok) {
-                console.log(`Task ${taskId} marked as complete`);
-                // Reload the page or update the UI as needed
-                location.reload();
-            } else {
-                console.error(`Failed to complete task ${taskId}`, response.status, response.statusText);
-            }
-        } catch (error) {
-            console.error('Error completing task:', error);
-        }
-    };
+    //         if (response.ok) {
+    //             console.log(`Task ${taskId} marked as complete`);
+    //             // Reload the page or update the UI as needed
+    //             location.reload();
+    //         } else {
+    //             console.error(`Failed to complete task ${taskId}`, response.status, response.statusText);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error completing task:', error);
+    //     }
+    // };
 
-    // Event listener for "Complete Task" button
-    document.addEventListener('click', (event) => {
-        if (event.target.classList.contains('completeTaskButton')) {
-            const taskId = event.target.dataset.taskId;
-            completeTaskHandler(taskId);
-        }
-    });
+    // // Event listener for "Complete Task" button
+    // document.addEventListener('click', (event) => {
+    //     if (event.target.classList.contains('completeTaskButton')) {
+    //         const taskId = event.target.dataset.taskId;
+    //         completeTaskHandler(taskId);
+    //     }
+    // });
 
     // Event listener for "Delete Task" button
     document.addEventListener('click', (event) => {
