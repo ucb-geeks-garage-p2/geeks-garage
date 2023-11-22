@@ -24,9 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dueByInput) {
             const [month, day, year] = dueByInput.split('-');
             const utcDueDate = new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
-            // Adjust for local timezone offset
-            const utcDueDateWithOffset = new Date(utcDueDate.getTime() + utcDueDate.getTimezoneOffset() * 60000);
-            dueBy = Math.floor(utcDueDateWithOffset.getTime() / 1000).toString(); // Convert to seconds and floor the value
+            // Convert to seconds and floor the value directly
+            dueBy = Math.floor(utcDueDate.getTime() / 1000).toString();
         } else {
             dueBy = null;
         }
@@ -61,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    
     const deleteTaskHandler = async (taskId) => {
 
         const carId = document.getElementById('carInfoStore').dataset.carid;
