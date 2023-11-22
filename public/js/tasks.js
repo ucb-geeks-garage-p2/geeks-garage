@@ -131,12 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Event listener for "Delete Task" button
-  document.addEventListener('click', (event) => {
-      if (event.target.classList.contains('deleteTaskButton')) {
-          const taskId = event.target.dataset.taskId;
-          deleteTask(taskId);
-      }
-  });
+  // document.addEventListener('click', (event) => {
+  //     if (event.target.classList.contains('deleteTaskButton')) {
+  //         const taskId = event.target.dataset.taskId;
+  //         deleteTask(taskId);
+  //     }
+  // });
 
   if (createTaskButton) {
       createTaskButton.addEventListener('click', () => {
