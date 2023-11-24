@@ -31,10 +31,10 @@ Visit the server's url. Sign up to create a personal profile. Add cars and then 
 - express-session v1.17.3 => https://expressjs.com/en/resources/middleware/session.html
 - mysql2 v3.6.3 => https://github.com/sidorares/node-mysql2
 - sequelize v6.34.0 => https://sequelize.org/
-
-- login form component => https://www.sliderrevolution.com/resources/bootstrap-login-form/
-- navbar component => https://htmljstemplates.com/html/bootstrap-5-navbars
-- card component => https://www.bootdey.com/snippets/view/events-card-widget
+Component Resources:
+- login form => https://www.sliderrevolution.com/resources/bootstrap-login-form/
+- navbar => https://htmljstemplates.com/html/bootstrap-5-navbars
+- card => https://www.bootdey.com/snippets/view/events-card-widget
 - trash icon => https://icons.getbootstrap.com/icons/trash/
 
 ## License
