@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const createTaskButtonModalHandler = (event) => {
+  const createTaskButtonModalHandler = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -30,104 +30,133 @@ document.addEventListener('DOMContentLoaded', () => {
     //for created on 
 
 
-    convertDateToEpochString(dueByInput)
-      .then((dueByEpoch) => {
-        return fetch('/', {
-          method: 'POST',
-          body: JSON.stringify({
-            task_name: taskName,
-            created_on: createdOn,
-            due_by: dueByEpoch,
-            car_id: carId,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-      })
-      .then((response) => {
-        createTaskModal.hide();
+    // convertDateToEpochString(dueByInput)
+    //   .then((dueByEpoch) => {
+    //     return fetch('/', {
+    //       method: 'POST',
+    //       body: JSON.stringify({
+    //         task_name: taskName,
+    //         created_on: createdOn,
+    //         due_by: dueByEpoch,
+    //         car_id: carId,
+    //       }),
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     });
+    //   })
+    //   .then((response) => {
+    //     createTaskModal.hide();
 
-        if (response.ok) {
-          console.log('New task created');
-          document.location.replace('/');
-        } else {
-          console.error('Failed to create task:', response.status, response.statusText);
-        }
-      })
-      .catch((error) => {
-        console.error('Error creating task:', error);
+    //     if (response.ok) {
+    //       console.log('New task created');
+    //       document.location.replace('/');
+    //     } else {
+    //       console.error('Failed to create task:', response.status, response.statusText);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error creating task:', error);
+    //   });
+
+    try {
+      const dueByEpoch = await convertDateToEpochString(dueByInput);
+
+      const response = await fetch('/', {
+        method: 'POST',
+        body: JSON.stringify({
+          task_name: taskName,
+          created_on: createdOn,
+          due_by: dueByEpoch,
+          car_id: carId,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+
+      createTaskModal.hide();
+
+      if (response.ok) {
+        console.log('New task created');
+        document.location.replace('/');
+      } else {
+        console.error('Failed to create task:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
+
   };
 
   const deleteTaskHandler = async (taskId) => {
-      try {
-          const response = await fetch(`/${taskId}`, {
-              method: 'DELETE',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-          });
+    try {
+      const response = await fetch(`/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-          if (response.ok) {
-              console.log(`Task ${taskId} deleted`);
-              // Reload the page or update the UI as needed
-              location.reload();
-          } else {
-              console.error(`Failed to delete task ${taskId}`, response.status, response.statusText);
-          }
-      } catch (error) {
-          console.error('Error deleting task:', error);
+      if (response.ok) {
+        console.log(`Task ${taskId} deleted`);
+        // Reload the page or update the UI as needed
+        location.reload();
+      } else {
+        console.error(`Failed to delete task ${taskId}`, response.status, response.statusText);
       }
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   // Add event listeners for delete buttons within each task div
   const deleteButtons = document.querySelectorAll('deleteTaskButton');
   if (deleteButtons) {
-      deleteButtons.forEach((button) => {
-          button.addEventListener('click', (event) => {
-              event.preventDefault();
-              event.stopPropagation();
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-              const taskId = button.dataset.taskId;
-              if (taskId) {
-                  // Confirm deletion if needed
-                  const confirmDeletion = confirm('Are you sure you want to delete this task?');
-                  if (confirmDeletion) {
-                    deleteTaskHandler(taskId);
-                  }
-              }
-          });
+        const taskId = button.dataset.taskId;
+        if (taskId) {
+          // Confirm deletion if needed
+          const confirmDeletion = confirm('Are you sure you want to delete this task?');
+          if (confirmDeletion) {
+            deleteTaskHandler(taskId);
+          }
+        }
       });
+    });
   }
 
   const completeTaskHandler = async (taskId) => {
-      try {
-          const response = await fetch(`/api/tasks/${taskId}/complete`, {
-              method: 'PUT',  // Assuming you use a PUT request to mark a task as complete
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-          });
-  
-          if (response.ok) {
-              console.log(`Task ${taskId} marked as complete`);
-              // Reload the page or update the UI as needed
-              location.reload();
-          } else {
-              console.error(`Failed to complete task ${taskId}`, response.status, response.statusText);
-          }
-      } catch (error) {
-          console.error('Error completing task:', error);
+    try {
+      const response = await fetch(`/api/tasks/${taskId}/complete`, {
+        method: 'PUT',  // Assuming you use a PUT request to mark a task as complete
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        console.log(`Task ${taskId} marked as complete`);
+        // Reload the page or update the UI as needed
+        location.reload();
+      } else {
+        console.error(`Failed to complete task ${taskId}`, response.status, response.statusText);
       }
+    } catch (error) {
+      console.error('Error completing task:', error);
+    }
   };
 
   // Event listener for "Complete Task" button
   document.addEventListener('click', (event) => {
-      if (event.target.classList.contains('completeTaskButton')) {
-          const taskId = event.target.dataset.taskId;
-          completeTaskHandler(taskId);
-      }
+    if (event.target.classList.contains('completeTaskButton')) {
+      const taskId = event.target.dataset.taskId;
+      completeTaskHandler(taskId);
+    }
   });
 
   // Event listener for "Delete Task" button
@@ -139,13 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // });
 
   if (createTaskButton) {
-      createTaskButton.addEventListener('click', () => {
-          createTaskModal.show();
-      });
+    createTaskButton.addEventListener('click', () => {
+      createTaskModal.show();
+    });
   }
 
   if (createTaskButtonModal) {
     //   createTaskButtonModal.removeEventListener('click', createTaskButtonModalHandler);
-      createTaskButtonModal.addEventListener('click', createTaskButtonModalHandler);
+    createTaskButtonModal.addEventListener('click', createTaskButtonModalHandler);
   }
 });
