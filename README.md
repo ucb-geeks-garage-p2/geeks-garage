@@ -22,6 +22,7 @@ In the install directory, run "npm i" and then run "npm start" to begin the expr
 Visit the server's url. Sign up to create a personal profile. Add cars and then add tasks to those cars. Cars and the user's profile can be edited. Cars, tasks, and the user's profile can be deleted.
 
 ## Credits
+- Node Packages:
 - bcrypt v5.1.1 => https://github.com/kelektiv/node.bcrypt.js#readme
 - connect-session-sequelize v7.1.7 => https://github.com/mweibel/connect-session-sequelize
 - date-fns v2.30.0 => https://date-fns.org/
@@ -31,7 +32,7 @@ Visit the server's url. Sign up to create a personal profile. Add cars and then 
 - express-session v1.17.3 => https://expressjs.com/en/resources/middleware/session.html
 - mysql2 v3.6.3 => https://github.com/sidorares/node-mysql2
 - sequelize v6.34.0 => https://sequelize.org/
-Component Resources:
+- Component Resources:
 - login form => https://www.sliderrevolution.com/resources/bootstrap-login-form/
 - navbar => https://htmljstemplates.com/html/bootstrap-5-navbars
 - card => https://www.bootdey.com/snippets/view/events-card-widget
