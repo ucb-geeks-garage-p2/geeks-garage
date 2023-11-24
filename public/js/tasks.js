@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskName = document.getElementById('taskName').value.trim();
     const createdOn = Date.now();
     const carId = document.getElementById('carId').value.trim();
-    const dueByInput = document.getElementById('dueByInput').value.trim();
-
+    const dueByInput = document.getElementById('dueBy').value.trim();
+    console.log(dueByInput);
     //for created on 
 
 
@@ -60,9 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //   });
 
     try {
-      const dueByEpoch = await convertDateToEpochString(dueByInput);
+      // const dueByEpoch = await convertDateToEpochString(dueByInput);
+      const dueByEpoch = dueByInput;
 
-      const response = await fetch('/', {
+      const response = await fetch('/api/tasks', {
         method: 'POST',
         body: JSON.stringify({
           task_name: taskName,
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (response.ok) {
         console.log('New task created');
-        document.location.replace('/');
+        document.location.replace(`/api/cars/${carId}`);
       } else {
         console.error('Failed to create task:', response.status, response.statusText);
       }
