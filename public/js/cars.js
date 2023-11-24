@@ -15,17 +15,24 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('createTaskForm hit');
     
         const taskName = document.getElementById('taskName').value.trim();
-        const createdOn = Math.floor(Date.now() / 1000); // Convert to seconds
-        const dueByInput = document.getElementById('dueBy').value.trim() || null;
+        const createdOn = Date.now();
+        const dueByInput = new Date(document.getElementById('dueBy').value.trim()) || null;
         const carId = document.getElementById('carInfoStore').dataset.carid;
     
         // Convert dueByInput to UTC epoch timestamp
+        // let dueBy;
+        // if (dueByInput) {
+        //     const [month, day, year] = dueByInput.split('-');
+        //     const utcDueDate = new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
+        //     // Convert to seconds and floor the value directly
+        //     dueBy = Math.floor(utcDueDate.getTime() / 1000).toString();
+        // } else {
+        //     dueBy = null;
+        // }
+
         let dueBy;
         if (dueByInput) {
-            const [month, day, year] = dueByInput.split('-');
-            const utcDueDate = new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
-            // Convert to seconds and floor the value directly
-            dueBy = Math.floor(utcDueDate.getTime() / 1000).toString();
+            dueBy = dueByInput.getTime();
         } else {
             dueBy = null;
         }
@@ -37,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     task_name: taskName,
                     created_on: createdOn,
                     due_by: dueBy,
+                    // due_by: dueByInput,
                     car_id: carId,
                 }),
                 headers: {

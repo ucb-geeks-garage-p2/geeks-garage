@@ -27,11 +27,43 @@ handlebars.registerHelper('returnFormatDate', function(timestamp) {
   const timestampNumber = typeof timestamp === 'string' ? parseInt(timestamp, 10) : timestamp;
 
   if (typeof timestampNumber === 'number' && !isNaN(timestampNumber)) {
-    const date = new Date(timestampNumber * 1000);
+    const date = new Date(timestampNumber);
     return format(date, 'MM-dd-yyyy');
   } else {
     // Handle the case where timestamp is not a valid number
     return 'A long time ago in a galaxy far far away....';
+  }
+});
+
+handlebars.registerHelper('returnDayDate', function(timestamp) {
+  if (timestamp === null) {
+    return '?';
+  }
+
+  const timestampNumber = typeof timestamp === 'string' ? parseInt(timestamp, 10) : timestamp;
+
+  if (typeof timestampNumber === 'number' && !isNaN(timestampNumber)) {
+    const date = new Date(timestampNumber);
+    return format(date, 'dd');
+  } else {
+    // Handle the case where timestamp is not a valid number
+    return '?!';
+  }
+});
+
+handlebars.registerHelper('returnMonthDate', function(timestamp) {
+  if (timestamp === null) {
+    return '___';
+  }
+
+  const timestampNumber = typeof timestamp === 'string' ? parseInt(timestamp, 10) : timestamp;
+
+  if (typeof timestampNumber === 'number' && !isNaN(timestampNumber)) {
+    const date = new Date(timestampNumber);
+    return format(date, 'MMM');
+  } else {
+    // Handle the case where timestamp is not a valid number
+    return '===';
   }
 });
 
