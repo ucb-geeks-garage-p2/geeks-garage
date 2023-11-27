@@ -51,7 +51,7 @@ Create pull requests that adds functionality or patches bugs.
 Github Usernames: 
 - KAntBarr ==> https://github.com/KAntBarr - kobybarr.dev@gmail.com
 - dpprdgls ==> https://github.com/dpprdgls - 
-- DigitallyIntrinsic ==> https://github.com/DigitallyIntrinsic - 
+- DigitallyIntrinsic ==> https://github.com/DigitallyIntrinsic - gitboot@1002.us
 
 ## Video
 Demonstration link: https://drive.google.com/file/d/1TsYuEvHGeclvuaSYZiMaUNL_hVbWw1L3/view
