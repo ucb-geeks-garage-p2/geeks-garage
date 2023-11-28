@@ -4,7 +4,7 @@ const { carController } = require("../controllers/");
 const { taskController } = require("../controllers/");
 
 router.get('/', async (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
 
     const userWithCars = await userController.getUserCarsByID(req.session.userID);
     console.log(userWithCars, "--------user dataset here--------");
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
 
 
     const viewObj = {
-      logged_in: req.session.loggedIn,
+      logged_in: req.session.logged_in,
       user_id: userWithCars.id,
       username: userWithCars.username,
       carsWithTasks: shortTasks,
@@ -93,7 +93,7 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      req.session.loggedIn = true;
+      req.session.logged_in = true;
       req.session.userID = user.id;
       console.log(
         'File: user-routes.js ~ req.session.save ~ req.session.cookie',
@@ -117,7 +117,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', async (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     req.session.destroy(() => {
       // console.log("---user logged out---");
       res.redirect('/');

@@ -12,7 +12,7 @@ router.route('/')
 
 
             req.session.save(() => {
-                req.session.loggedIn = true;
+                req.session.logged_in = true;
                 req.session.userID = user.id;
                 console.log(
                     'File: user-routes.js ~ req.session.save ~ req.session.cookie',
@@ -38,7 +38,7 @@ router.route('/')
     })
     .put(async (req, res) => {
 
-        if (req.session.loggedIn) {
+        if (req.session.logged_in) {
             try {
                 const updateUser = await userController.updateUser(req.session.userID, req.body);
                 console.log(updateUser, "--------updated user dataset here--------");
@@ -54,7 +54,7 @@ router.route('/')
     })
     .delete(async (req, res) => {
 
-        if (req.session.loggedIn) {
+        if (req.session.logged_in) {
             try {
                 const deletedUser = await userController.deleteUser(req.session.userID);
                 req.session.destroy(() => {
@@ -72,7 +72,7 @@ router.route('/update-password')
     // .get()
     .put(async (req, res) => {
 
-        if (req.session.loggedIn) {
+        if (req.session.logged_in) {
             try {
                 const updatedPassword = await userController.updateUserPassword(req.session.userID, req.body);
                 console.log(updatedPassword, "--------updated password dataset here--------");
@@ -89,14 +89,14 @@ router.route('/update-password')
 
 
 router.get('/profile', async (req, res) => {
-    if (req.session.loggedIn) {
+    if (req.session.logged_in) {
         try {
             const userInfo = await userController.getUserByID(req.session.userID);
             console.log(userInfo, "=======user info here======");
 
 
             const viewObj = {
-                logged_in: req.session.loggedIn,
+                logged_in: req.session.logged_in,
                 userInfo,
 
             }

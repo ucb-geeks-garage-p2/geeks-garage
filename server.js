@@ -20,6 +20,7 @@ const sess = {
   secret: "Super secret secret",
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // expires after 1 day
+    // maxAge: 10 * 1000,
   },
   resave: false,
   saveUninitialized: true,

@@ -23,12 +23,12 @@ router.route('/')
 
 router.route('/:id')
     .get(async (req, res) => {
-        if (req.session.loggedIn) {
+        if (req.session.logged_in) {
             try {
                 const carWithTasks = await carController.getCarTasksByID(req.params.id);
                 console.log(carWithTasks, "--------car dataset here--------");
                 const viewObj = {
-                    logged_in: req.session.loggedIn,
+                    logged_in: req.session.logged_in,
                     carWithTasks,
 
                 }
@@ -42,7 +42,7 @@ router.route('/:id')
         }
     })
     .put(async (req, res) => {
-        if (req.session.loggedIn) {
+        if (req.session.logged_in) {
             try {
                 const updatedCar = await carController.updateCar(req.params.id, req.body);
                 console.log(updatedCar, "--------updated car dataset here--------");
