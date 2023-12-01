@@ -50,7 +50,7 @@ Create pull requests that adds functionality or patches bugs.
 ## Questions
 Github Usernames: 
 - KAntBarr ==> https://github.com/KAntBarr - kobybarr.dev@gmail.com
-- dpprdgls ==> https://github.com/dpprdgls - 
+- dpprdgls ==> https://github.com/dpprdgls - daps.douglas@gmail.com
 - DigitallyIntrinsic ==> https://github.com/DigitallyIntrinsic - gitboot@1002.us
 
 ## Video
