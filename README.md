@@ -15,8 +15,8 @@ Geeks Garage is a car maintenance tracker application. Users can sign up to crea
 - [Video](#Video)
 
 ## Installation
-Clone this repository --> git@github.com:ucb-geeks-garage-p2/geeks-garage.git
-In the install directory, run "npm i" and then run "npm start" to begin the express server that will host the app.
+- Clone this repository --> git@github.com:ucb-geeks-garage-p2/geeks-garage.git
+- In the install directory, run "npm i" and then run "npm start" to begin the express server that will host the app.
 
 ## Usage
 Visit the server's url. Sign up to create a personal profile. Add cars and then add tasks to those cars. Cars and the user's profile can be edited. Cars, tasks, and the user's profile can be deleted.
