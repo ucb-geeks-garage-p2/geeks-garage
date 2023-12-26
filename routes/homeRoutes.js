@@ -73,23 +73,27 @@ router.post('/login', async (req, res) => {
     const user = await userController.checkUserByEmail(req.body.email);
 
     if (!user) {
+      console.log("not a valid user");
       req.session.save(() => {
         req.session.lastMessage = "Incorrect email or password, please try again";
         req.session.failedLogin = true;
         res.status(500).send("Incorrect email or password, please try again");
         return;
-      })
+      });
+      return;
     }
 
     const validPassword = user.checkPassword(req.body.password);
 
     if (!validPassword) {
+      console.log("not a valid password");
       req.session.save(() => {
         req.session.lastMessage = "Incorrect email or password, please try again";
         req.session.failedLogin = true;
         res.status(500).send("Incorrect email or password, please try again");
         return;
-      })
+      });
+      return;
     }
 
     req.session.save(() => {

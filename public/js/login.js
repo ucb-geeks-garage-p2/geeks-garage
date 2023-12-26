@@ -10,12 +10,12 @@ const loginFormHandler = async (event) => {
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log('logged in, going to home');
+    // console.log('logged in, going to home');
     if (response.ok) {
       document.location.replace('/');
     } else {
       alert('Failed to log in.');
-      document.location.replace('/');
+      // document.location.replace('/');
     }
   }
 };
@@ -40,7 +40,7 @@ const signupFormHandler = async (event) => {
       document.location.replace('/');
     } else {
       alert('Failed to sign up.');
-      document.location.replace('/signup');
+      // document.location.replace('/signup');
     }
   }
 };
