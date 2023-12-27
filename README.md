@@ -5,14 +5,14 @@
 Geeks Garage is a car maintenance tracker application. Users can sign up to create a profile to start keeping track of their cars. Cars can have multiple tasks that have a "due by" date. This helps the user know which tasks to accomplish first. Tasks can be deleted when they are completed.
 
 ## Table of Contents
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Credits](#Credits)
-- [License](#License)
-- [Features](#Features)
-- [Contributing](#Contributing)
-- [Questions](#Questions)
-- [Video](#Video)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+- [Features](#features)
+- [Contributing](#contributing)
+- [Questions](#questions)
+- [Video](#video)
 
 ## Installation
 - Clone this repository --> git@github.com:ucb-geeks-garage-p2/geeks-garage.git
