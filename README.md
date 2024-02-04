@@ -21,7 +21,7 @@ Geeks Garage is a car maintenance tracker application. Users can sign up to crea
 ## Usage
 Visit the server's url. Sign up to create a personal profile. Add cars and then add tasks to those cars. Cars and the user's profile can be edited. Cars, tasks, and the user's profile can be deleted.
 
-<img width="1128" alt="image" src="https://github.com/ucb-geeks-garage-p2/geeks-garage/assets/70618192/00e7a393-ef0f-4d5a-b188-9d7708152002">
+<img width="1128" alt="image" src="https://github.com/ucb-geeks-garage-p2/geeks-garage/assets/70618192/ff4d5608-6bde-4c3e-8724-24c3b1c5ec1e">
 
 ## Credits
 - Node Packages:
